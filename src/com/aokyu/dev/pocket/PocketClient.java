@@ -14,7 +14,6 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 
 import com.aokyu.dev.pocket.PocketServer.RequestType;
 import com.aokyu.dev.pocket.error.ErrorHandler;
@@ -47,7 +46,7 @@ public class PocketClient {
     }
 
     public void authorize(AuthorizationCallback callback)
-            throws IOException, JSONException, InvalidRequestException, PocketException {
+            throws IOException, InvalidRequestException, PocketException {
         RequestToken requestToken = obtainRequestToken();
         callback.onRequested(mConsumerKey, requestToken);
         Activity activity = callback.onRequestContinued();
@@ -59,7 +58,7 @@ public class PocketClient {
     }
 
     public AccessToken authenticate(RequestToken requestToken)
-            throws IOException, JSONException, InvalidRequestException, PocketException {
+            throws IOException, InvalidRequestException, PocketException {
         String endpoint = PocketServer.getEndpoint(RequestType.OAUTH_AUTHORIZE);
         URL requestUrl = new URL(endpoint);
         HttpHeaders headers = new HttpHeaders();
@@ -84,6 +83,8 @@ public class PocketClient {
                 ErrorResponse error = new ErrorResponse(response);
                 mErrorHandler.handleResponse(error);
             }
+        } catch (JSONException e) {
+            throw new PocketException(e.getMessage());
         } finally {
             if (response != null) {
                 response.disconnect();
@@ -94,7 +95,7 @@ public class PocketClient {
     }
 
     private RequestToken obtainRequestToken()
-            throws IOException, JSONException,InvalidRequestException, PocketException {
+            throws IOException, InvalidRequestException, PocketException {
         String endpoint = PocketServer.getEndpoint(RequestType.OAUTH_REQUEST);
         URL requestUrl = new URL(endpoint);
         HttpHeaders headers = new HttpHeaders();
@@ -119,6 +120,8 @@ public class PocketClient {
                 ErrorResponse error = new ErrorResponse(response);
                 mErrorHandler.handleResponse(error);
             }
+        } catch (JSONException e) {
+            throw new PocketException(e.getMessage());
         } finally {
             if (response != null) {
                 response.disconnect();
@@ -136,13 +139,13 @@ public class PocketClient {
     }
 
     public AddResponse add(AccessToken accessToken, String url)
-            throws IOException, JSONException, InvalidRequestException, PocketException {
+            throws IOException, InvalidRequestException, PocketException {
         return add(accessToken, url, null, null, -1);
     }
 
     public AddResponse add(AccessToken accessToken, String url, String title,
             String[] tags, long tweetId)
-                    throws IOException, JSONException, InvalidRequestException, PocketException {
+                    throws IOException, InvalidRequestException, PocketException {
         AddRequest.Builder builder = new AddRequest.Builder(url);
 
         if (title != null) {
@@ -162,7 +165,7 @@ public class PocketClient {
     }
 
     public AddResponse add(AccessToken accessToken, AddRequest addRequest)
-            throws IOException, JSONException, InvalidRequestException, PocketException {
+            throws IOException, InvalidRequestException, PocketException {
         String endpoint = PocketServer.getEndpoint(RequestType.ADD);
         URL requestUrl = new URL(endpoint);
         HttpHeaders headers = new HttpHeaders();
@@ -187,6 +190,8 @@ public class PocketClient {
                 ErrorResponse error = new ErrorResponse(response);
                 mErrorHandler.handleResponse(error);
             }
+        } catch (JSONException e) {
+            throw new PocketException(e.getMessage());
         } finally {
             if (response != null) {
                 response.disconnect();
@@ -195,14 +200,18 @@ public class PocketClient {
 
         AddResponse addResponse = null;
         if (jsonObj != null) {
-            addResponse = new AddResponse(jsonObj);
+            try {
+                addResponse = new AddResponse(jsonObj);
+            } catch (JSONException e) {
+                throw new PocketException(e.getMessage());
+            }
         }
 
         return addResponse;
     }
 
     public RetrieveResponse retrieve(AccessToken accessToken, RetrieveRequest retrieveRequest)
-            throws IOException, JSONException, InvalidRequestException, PocketException {
+            throws IOException, InvalidRequestException, PocketException {
         String endpoint = PocketServer.getEndpoint(RequestType.RETRIEVE);
         URL requestUrl = new URL(endpoint);
         HttpHeaders headers = new HttpHeaders();
@@ -227,6 +236,8 @@ public class PocketClient {
                 ErrorResponse error = new ErrorResponse(response);
                 mErrorHandler.handleResponse(error);
             }
+        } catch (JSONException e) {
+            throw new PocketException(e.getMessage());
         } finally {
             if (response != null) {
                 response.disconnect();
@@ -235,14 +246,18 @@ public class PocketClient {
 
         RetrieveResponse retrieveResponse = null;
         if (jsonObj != null) {
-            retrieveResponse = new RetrieveResponse(jsonObj);
+            try {
+                retrieveResponse = new RetrieveResponse(jsonObj);
+            } catch (JSONException e) {
+                throw new PocketException(e.getMessage());
+            }
         }
 
         return retrieveResponse;
     }
 
     public ModifyResponse modify(AccessToken accessToken, ModifyRequest modifyRequest)
-            throws IOException, JSONException, InvalidRequestException, PocketException {
+            throws IOException, InvalidRequestException, PocketException {
         String endpoint = PocketServer.getEndpoint(RequestType.MODIFY);
         URL requestUrl = new URL(endpoint);
         HttpHeaders headers = new HttpHeaders();
@@ -267,6 +282,8 @@ public class PocketClient {
                 ErrorResponse error = new ErrorResponse(response);
                 mErrorHandler.handleResponse(error);
             }
+        } catch (JSONException e) {
+            throw new PocketException(e.getMessage());
         } finally {
             if (response != null) {
                 response.disconnect();
@@ -274,9 +291,12 @@ public class PocketClient {
         }
 
         ModifyResponse modifyResponse = null;
-        Log.d("#TEST#", "json : " + jsonObj.toString());
         if (jsonObj != null) {
-            modifyResponse = new ModifyResponse(jsonObj);
+            try {
+                modifyResponse = new ModifyResponse(jsonObj);
+            } catch (JSONException e) {
+                throw new PocketException(e.getMessage());
+            }
         }
 
         return modifyResponse;
