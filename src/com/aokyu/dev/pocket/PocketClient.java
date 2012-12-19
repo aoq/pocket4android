@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 
 import com.aokyu.dev.pocket.PocketServer.RequestType;
 import com.aokyu.dev.pocket.error.ErrorHandler;
@@ -240,4 +241,44 @@ public class PocketClient {
         return retrieveResponse;
     }
 
+    public ModifyResponse modify(AccessToken accessToken, ModifyRequest modifyRequest)
+            throws IOException, JSONException, InvalidRequestException, PocketException {
+        String endpoint = PocketServer.getEndpoint(RequestType.MODIFY);
+        URL requestUrl = new URL(endpoint);
+        HttpHeaders headers = new HttpHeaders();
+        headers.put(HttpHeader.CONTENT_TYPE, CONTENT_TYPE_JSON_WITH_UTF8);
+        headers.put(HttpHeader.X_ACCEPT, X_ACCEPT_JSON);
+        headers.put(HttpHeader.HOST, requestUrl.getHost());
+
+        modifyRequest.put(AddRequest.Parameter.ACCESS_TOKEN, accessToken.get());
+        modifyRequest.put(AddRequest.Parameter.CONSUMER_KEY, mConsumerKey.get());
+
+        HttpParameters parameters = modifyRequest.getHttpParameters();
+
+        HttpRequest request = new HttpRequest(HttpMethod.POST, requestUrl, headers, parameters);
+
+        HttpResponse response = null;
+        JSONObject jsonObj = null;
+        try {
+            response = mClient.execute(request);
+            if (response.getStatusCode() == HttpURLConnection.HTTP_OK) {
+                jsonObj = response.getResponseAsJSONObject();
+            } else {
+                ErrorResponse error = new ErrorResponse(response);
+                mErrorHandler.handleResponse(error);
+            }
+        } finally {
+            if (response != null) {
+                response.disconnect();
+            }
+        }
+
+        ModifyResponse modifyResponse = null;
+        Log.d("#TEST#", "json : " + jsonObj.toString());
+        if (jsonObj != null) {
+            modifyResponse = new ModifyResponse(jsonObj);
+        }
+
+        return modifyResponse;
+    }
 }

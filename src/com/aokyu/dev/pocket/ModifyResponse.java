@@ -4,6 +4,7 @@
 
 package com.aokyu.dev.pocket;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,4 +20,15 @@ public class ModifyResponse extends Response {
     /* package */ ModifyResponse(JSONObject jsonObj) throws JSONException {
         super(jsonObj);
     }
+
+    public boolean[] getActionResults() throws JSONException {
+        JSONArray jsonArray = (JSONArray) get(Parameter.ACTION_RESULTS);
+        int size = jsonArray.length();
+        boolean[] results = new boolean[size];
+        for (int i = 0; i < size; i++) {
+            results[i] = jsonArray.getBoolean(i);
+        }
+        return results;
+    }
+
 }
