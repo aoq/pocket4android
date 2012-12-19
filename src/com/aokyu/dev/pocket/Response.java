@@ -20,6 +20,31 @@ public class Response {
 
     }
 
+    public enum Status {
+        FAILED(0),
+        SUCCEEDED(1);
+
+        private int mStatus;
+
+        private Status(int status) {
+            mStatus = status;
+        }
+
+        public int intValue() {
+            return mStatus;
+        }
+
+        public static Status valueOf(int value) {
+            Status[] statuses = values();
+            for (Status status : statuses) {
+                if (status.intValue() == value) {
+                    return status;
+                }
+            }
+            return null;
+        }
+    }
+
     private HttpParameters mParameters = new HttpParameters();
 
     protected Response(JSONObject jsonObj) throws JSONException {
@@ -67,4 +92,12 @@ public class Response {
         return mParameters.containsKey(key);
     }
 
+    public Status getStatus() {
+        if (containsKey(Parameter.STATUS)) {
+            int status = (Integer) get(Parameter.STATUS);
+            return Status.valueOf(status);
+        } else {
+            return Status.FAILED;
+        }
+    }
 }
