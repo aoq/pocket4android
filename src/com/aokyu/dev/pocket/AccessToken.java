@@ -11,14 +11,14 @@ import java.net.URLEncoder;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.aokyu.dev.pocket.util.JSONUtils;
+import com.aokyu.dev.pocket.error.PocketException;
 
 public class AccessToken implements Serializable {
 
     private static final long serialVersionUID = 5522663727862182215L;
 
-    public static final String KEY_TOKEN = "access_token";
-    public static final String KEY_USERNAME = "username";
+    private static final String KEY_TOKEN = "access_token";
+    private static final String KEY_USERNAME = "username";
     private static final String ENCODE = "UTF-8";
 
     private String mToken;
@@ -36,18 +36,21 @@ public class AccessToken implements Serializable {
         mUsername = obtainParameter(elements, KEY_USERNAME);
     }
 
-    /* package */ AccessToken(JSONObject jsonObj) throws JSONException {
-        String[] keys = JSONUtils.getKeys(jsonObj);
-        int size = keys.length;
-        for (int i = 0; i < size; i++) {
-            String key = keys[i];
-            if (key.equals(KEY_TOKEN)) {
+    /* package */ AccessToken(JSONObject jsonObj) throws PocketException {
+        try {
+            if (!jsonObj.isNull(KEY_TOKEN)) {
                 mToken = jsonObj.getString(KEY_TOKEN);
-                continue;
-            } else if (key.equals(KEY_USERNAME)) {
-                mUsername = jsonObj.getString(KEY_USERNAME);
-                continue;
             }
+
+            if (!jsonObj.isNull(KEY_USERNAME)) {
+                mUsername = jsonObj.getString(KEY_USERNAME);
+            }
+        } catch (JSONException e) {
+            throw new PocketException();
+        }
+
+        if (mToken == null || mUsername == null) {
+            throw new PocketException();
         }
     }
 
