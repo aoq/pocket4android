@@ -75,12 +75,14 @@ public class AddRequest extends Request {
             mRequest.put(Parameter.CONSUMER_KEY, consumerKey);
         }
 
-        /* package */ void setAccessToken(String accessToken) {
+        /* package */ Builder setAccessToken(String accessToken) {
             mRequest.put(Parameter.ACCESS_TOKEN, accessToken);
+            return this;
         }
 
-        /* package */ void setConsumerKey(String consumerKey) {
+        /* package */ Builder setConsumerKey(String consumerKey) {
             mRequest.put(Parameter.CONSUMER_KEY, consumerKey);
+            return this;
         }
 
         public Builder setTitle(String title) {

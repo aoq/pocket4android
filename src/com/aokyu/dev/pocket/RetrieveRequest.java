@@ -138,12 +138,14 @@ public class RetrieveRequest extends Request {
             mRequest.put(RetrieveRequestParameter.CONSUMER_KEY, consumerKey);
         }
 
-        /* package */ void setAccessToken(String accessToken) {
+        /* package */ Builder setAccessToken(String accessToken) {
             mRequest.put(RetrieveRequestParameter.ACCESS_TOKEN, accessToken);
+            return this;
         }
 
-        /* package */ void setConsumerKey(String consumerKey) {
+        /* package */ Builder setConsumerKey(String consumerKey) {
             mRequest.put(RetrieveRequestParameter.CONSUMER_KEY, consumerKey);
+            return this;
         }
 
         public Builder setState(String state) {
