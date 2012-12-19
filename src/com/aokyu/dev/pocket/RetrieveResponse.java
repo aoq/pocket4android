@@ -47,59 +47,59 @@ public class RetrieveResponse extends Response {
         super(jsonObj, Parameter.LIST);
     }
 
-    public String[] getItemIds() {
-        Set<String> itemIds = keySet();
-        return itemIds.toArray(new String[0]);
+    public String[] getUIDs() {
+        Set<String> uids = keySet();
+        return uids.toArray(new String[0]);
     }
 
-    public Page getItem(String itemId) throws JSONException {
-        JSONObject obj = (JSONObject) get(itemId);
+    public Page getItem(String uid) throws JSONException {
+        JSONObject obj = (JSONObject) get(uid);
         Page page = new Page.Builder(obj).build();
         return page;
     }
 
     public List<Page> getItems() throws JSONException {
         List<Page> pages = new ArrayList<Page>();
-        String[] itemIds = getItemIds();
-        for (String itemId : itemIds) {
-            JSONObject obj = (JSONObject) get(itemId);
+        String[] uids = getUIDs();
+        for (String uid : uids) {
+            JSONObject obj = (JSONObject) get(uid);
             Page page = new Page.Builder(obj).build();
             pages.add(page);
         }
         return pages;
     }
 
-    public JSONObject getItemAsJSONObject(String itemId) {
-        return (JSONObject) get(itemId);
+    public JSONObject getItemAsJSONObject(String uid) {
+        return (JSONObject) get(uid);
     }
 
-    public String getResolvedId(String itemId) throws JSONException {
-        JSONObject obj = (JSONObject) get(itemId);
+    public String getResolvedId(String uid) throws JSONException {
+        JSONObject obj = (JSONObject) get(uid);
         return obj.getString(Parameter.RESOLVED_ID);
     }
 
-    public String getGivenUrl(String itemId) throws JSONException {
-        JSONObject obj = (JSONObject) get(itemId);
+    public String getGivenUrl(String uid) throws JSONException {
+        JSONObject obj = (JSONObject) get(uid);
         return obj.getString(Parameter.GIVEN_URL);
     }
 
-    public String getResolvedUrl(String itemId) throws JSONException {
-        JSONObject obj = (JSONObject) get(itemId);
+    public String getResolvedUrl(String uid) throws JSONException {
+        JSONObject obj = (JSONObject) get(uid);
         return obj.getString(Parameter.RESOLVED_URL);
     }
 
-    public String getGivenTitle(String itemId) throws JSONException {
-        JSONObject obj = (JSONObject) get(itemId);
+    public String getGivenTitle(String uid) throws JSONException {
+        JSONObject obj = (JSONObject) get(uid);
         return obj.getString(Parameter.GIVEN_TITLE);
     }
 
-    public String getResolvedTitle(String itemId) throws JSONException {
-        JSONObject obj = (JSONObject) get(itemId);
+    public String getResolvedTitle(String uid) throws JSONException {
+        JSONObject obj = (JSONObject) get(uid);
         return obj.getString(Parameter.RESOLVED_TITLE);
     }
 
-    public boolean isFavorited(String itemId) throws JSONException {
-        JSONObject obj = (JSONObject) get(itemId);
+    public boolean isFavorited(String uid) throws JSONException {
+        JSONObject obj = (JSONObject) get(uid);
         int state = -1;
         try {
             state = obj.getInt(Parameter.FAVORITE);
@@ -109,13 +109,13 @@ public class RetrieveResponse extends Response {
         }
     }
 
-    public String getExcerpt(String itemId) throws JSONException {
-        JSONObject obj = (JSONObject) get(itemId);
+    public String getExcerpt(String uid) throws JSONException {
+        JSONObject obj = (JSONObject) get(uid);
         return obj.getString(Parameter.EXCERPT);
     }
 
-    public boolean isArticle(String itemId) throws JSONException {
-        JSONObject obj = (JSONObject) get(itemId);
+    public boolean isArticle(String uid) throws JSONException {
+        JSONObject obj = (JSONObject) get(uid);
         int state = -1;
         try {
             state = obj.getInt(Parameter.IS_ARTICLE);
@@ -125,8 +125,8 @@ public class RetrieveResponse extends Response {
         }
     }
 
-    public ImageState getImageState(String itemId) throws JSONException {
-        JSONObject obj = (JSONObject) get(itemId);
+    public ImageState getImageState(String uid) throws JSONException {
+        JSONObject obj = (JSONObject) get(uid);
         int state = -1;
         try {
             state = obj.getInt(Parameter.HAS_IMAGE);
@@ -136,8 +136,8 @@ public class RetrieveResponse extends Response {
         }
     }
 
-    public VideoState getVideoState(String itemId) throws JSONException {
-        JSONObject obj = (JSONObject) get(itemId);
+    public VideoState getVideoState(String uid) throws JSONException {
+        JSONObject obj = (JSONObject) get(uid);
         int state = -1;
         try {
             state = obj.getInt(Parameter.HAS_VIDEO);
@@ -147,25 +147,25 @@ public class RetrieveResponse extends Response {
         }
     }
 
-    public int getWordCount(String itemId) throws JSONException {
-        JSONObject obj = (JSONObject) get(itemId);
+    public int getWordCount(String uid) throws JSONException {
+        JSONObject obj = (JSONObject) get(uid);
         return obj.getInt(Parameter.WORD_COUNT);
     }
 
-    public String[] getTags(String itemId) throws JSONException {
-        JSONObject obj = (JSONObject) get(itemId);
+    public String[] getTags(String uid) throws JSONException {
+        JSONObject obj = (JSONObject) get(uid);
         JSONObject tags = obj.getJSONObject(Parameter.TAGS);
         return JSONUtils.getKeys(tags);
     }
 
-    public String[] getAuthors(String itemId) throws JSONException {
-        JSONObject obj = (JSONObject) get(itemId);
+    public String[] getAuthors(String uid) throws JSONException {
+        JSONObject obj = (JSONObject) get(uid);
         JSONObject tags = obj.getJSONObject(Parameter.AUTHORS);
         return JSONUtils.getKeys(tags);
     }
 
-    public Image[] getImages(String itemId) throws JSONException {
-        JSONObject obj = (JSONObject) get(itemId);
+    public Image[] getImages(String uid) throws JSONException {
+        JSONObject obj = (JSONObject) get(uid);
         Image[] images = null;
         JSONObject jsonImages = obj.getJSONObject(Parameter.IMAGES);
         String[] keys = JSONUtils.getKeys(jsonImages);
@@ -184,8 +184,8 @@ public class RetrieveResponse extends Response {
         return images;
     }
 
-    public Video[] getVideos(String itemId) throws JSONException {
-        JSONObject obj = (JSONObject) get(itemId);
+    public Video[] getVideos(String uid) throws JSONException {
+        JSONObject obj = (JSONObject) get(uid);
         Video[] videos = null;
         JSONObject jsonVideo = obj.getJSONObject(Parameter.VIDEOS);
         String[] keys = JSONUtils.getKeys(jsonVideo);

@@ -48,7 +48,7 @@ public class AddResponse extends Response {
         super(jsonObj, Parameter.ITEM);
     }
 
-    public String getItemId() {
+    public String getUID() {
         return (String) get(Parameter.ITEM_ID);
     }
 
