@@ -7,8 +7,11 @@ package com.aokyu.dev.pocket.content;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Video extends MediaItem {
+
+public class Video extends MediaItem implements Parcelable {
 
     private interface Parameter {
 
@@ -44,6 +47,44 @@ public class Video extends MediaItem {
     public String getVid() {
         return mVid;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(getUID());
+        dest.writeLong(getId());
+        dest.writeString(getSource());
+        dest.writeInt(getWidth());
+        dest.writeInt(getHeight());
+        dest.writeString(mType);
+        dest.writeString(mVid);
+    }
+
+    private Video(Parcel in) {
+        super(in.readString());
+        setId(in.readLong());
+        setSource(in.readString());
+        setWidth(in.readInt());
+        setHeight(in.readInt());
+        mType = in.readString();
+        mVid = in.readString();
+    }
+
+    public static final Parcelable.Creator<Video> CREATOR =
+            new Parcelable.Creator<Video>() {
+        public Video createFromParcel(Parcel source) {
+            Video video = new Video(source);
+            return video;
+        }
+
+        public Video[] newArray(int size) {
+            return new Video[size];
+        }
+    };
 
     public static class Builder {
 

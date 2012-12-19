@@ -7,7 +7,10 @@ package com.aokyu.dev.pocket.content;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Image extends MediaItem {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Image extends MediaItem implements Parcelable {
 
     private interface Parameter {
 
@@ -43,6 +46,44 @@ public class Image extends MediaItem {
     public String getCaption() {
         return mCaption;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(getUID());
+        dest.writeLong(getId());
+        dest.writeString(getSource());
+        dest.writeInt(getWidth());
+        dest.writeInt(getHeight());
+        dest.writeString(mCredit);
+        dest.writeString(mCaption);
+    }
+
+    private Image(Parcel in) {
+        super(in.readString());
+        setId(in.readLong());
+        setSource(in.readString());
+        setWidth(in.readInt());
+        setHeight(in.readInt());
+        mCredit = in.readString();
+        mCaption = in.readString();
+    }
+
+    public static final Parcelable.Creator<Image> CREATOR =
+            new Parcelable.Creator<Image>() {
+        public Image createFromParcel(Parcel source) {
+            Image image = new Image(source);
+            return image;
+        }
+
+        public Image[] newArray(int size) {
+            return new Image[size];
+        }
+    };
 
     public static class Builder {
 

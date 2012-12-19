@@ -7,10 +7,13 @@ package com.aokyu.dev.pocket.content;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.aokyu.dev.pocket.RetrieveResponse;
 import com.aokyu.dev.pocket.util.JSONUtils;
 
-public class Page extends PocketItem {
+public class Page extends PocketItem implements Parcelable {
 
     public enum PageState {
         UNREAD(0),
@@ -238,6 +241,66 @@ public class Page extends PocketItem {
     public Video[] getVideos() {
         return mVideos;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(getUID());
+        dest.writeString(mResolvedId);
+        dest.writeString(mGivenUrl);
+        dest.writeString(mResolvedUrl);
+        dest.writeString(mGivenTitle);
+        dest.writeString(mResolvedTitle);
+        dest.writeInt(mIsFavorited ? 1 : 0);
+        dest.writeInt(mState.intValue());
+        dest.writeString(mExcerpt);
+        dest.writeInt(mIsArticle ? 1 : 0);
+        dest.writeInt(mImageState.intValue());
+        dest.writeInt(mVideoState.intValue());
+        dest.writeInt(mWordCount);
+        dest.writeStringArray(mTags);
+        dest.writeStringArray(mAuthors);
+        dest.writeParcelableArray(mImages, 0);
+        dest.writeParcelableArray(mVideos, 0);
+    }
+
+    private Page(Parcel in) {
+        super(in.readString());
+        mResolvedId = in.readString();
+        mGivenUrl = in.readString();
+        mResolvedUrl = in.readString();
+        mGivenTitle = in.readString();
+        mResolvedTitle = in.readString();
+        mIsFavorited = (in.readInt() == 1);
+        mState = PageState.valueOf(in.readInt());
+        mExcerpt = in.readString();
+        mIsArticle = (in.readInt() == 1);
+        mImageState = ImageState.valueOf(in.readInt());
+        mVideoState = VideoState.valueOf(in.readInt());
+        mWordCount = in.readInt();
+        in.readStringArray(mTags);
+        in.readStringArray(mAuthors);
+        mImages = (Image[]) in.readParcelableArray(Image.class.getClassLoader());
+        mVideos = (Video[]) in.readParcelableArray(Video.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<Page> CREATOR =
+            new Parcelable.Creator<Page>() {
+                @Override
+                public Page createFromParcel(Parcel source) {
+                    Page page = new Page(source);
+                    return page;
+                }
+
+                @Override
+                public Page[] newArray(int size) {
+                    return new Page[size];
+                }
+    };
 
     public static class Builder {
 
