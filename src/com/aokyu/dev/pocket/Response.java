@@ -14,9 +14,11 @@ import com.aokyu.dev.pocket.util.JSONUtils;
 
 public class Response {
 
-    public interface Parameter extends ResponseParameter {
+    public final class Parameter {
 
         public static final String STATUS = "status";
+
+        private Parameter() {}
 
     }
 

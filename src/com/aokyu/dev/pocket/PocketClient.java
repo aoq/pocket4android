@@ -47,7 +47,7 @@ public class PocketClient {
 
     public void authorize(AuthorizationCallback callback)
             throws IOException, InvalidRequestException, PocketException {
-        RequestToken requestToken = obtainRequestToken();
+        RequestToken requestToken = retrieveRequestToken();
         callback.onRequested(mConsumerKey, requestToken);
         Activity activity = callback.onRequestContinued();
         if (activity != null) {
@@ -94,7 +94,7 @@ public class PocketClient {
         return accessToken;
     }
 
-    private RequestToken obtainRequestToken()
+    private RequestToken retrieveRequestToken()
             throws IOException, InvalidRequestException, PocketException {
         String endpoint = PocketServer.getEndpoint(RequestType.OAUTH_REQUEST);
         URL requestUrl = new URL(endpoint);

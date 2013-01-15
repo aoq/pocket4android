@@ -12,11 +12,13 @@ import org.json.JSONException;
 
 public class ModifyRequest extends Request {
 
-    public interface Parameter extends RequestParameter {
+    public final class Parameter {
 
         public static final String ACCESS_TOKEN = "access_token";
         public static final String ACTIONS = "actions";
         public static final String CONSUMER_KEY = "consumer_key";
+
+        private Parameter() {}
 
     }
 
@@ -173,7 +175,7 @@ public class ModifyRequest extends Request {
         public static final String UNFAVORITE = "unfavorite";
         public static final String DELETE = "delete";
 
-        public interface Parameter extends RequestParameter {
+        public class Parameter {
 
             public static final String ACTION = "action";
             public static final String ITEM_ID = "item_id";
@@ -182,6 +184,8 @@ public class ModifyRequest extends Request {
             public static final String TIME = "time";
             public static final String TITLE = "title";
             public static final String URL = "url";
+
+            private Parameter() {}
 
         }
 
@@ -293,7 +297,7 @@ public class ModifyRequest extends Request {
         public static final String TAGS_CLEAR = "tags_clear";
         public static final String TAG_RENAME = "tag_rename";
 
-        public interface Parameter extends RequestParameter {
+        public class Parameter {
 
             public static final String ACTION = "action";
             public static final String ITEM_ID = "item_id";
@@ -301,6 +305,8 @@ public class ModifyRequest extends Request {
             public static final String TIME = "time";
             public static final String OLD_TAG = "old_tag";
             public static final String NEW_TAG = "new_tag";
+
+            private Parameter() {}
 
         }
 

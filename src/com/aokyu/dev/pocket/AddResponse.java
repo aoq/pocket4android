@@ -15,7 +15,7 @@ import com.aokyu.dev.pocket.util.JSONUtils;
 
 public class AddResponse extends Response {
 
-    public interface Parameter extends ResponseParameter {
+    public final class Parameter {
 
         public static final String ITEM = "item";
         public static final String STATUS = "status";
@@ -41,6 +41,8 @@ public class AddResponse extends Response {
         public static final String AUTHORS = "authors";
         public static final String IMAGES = "images";
         public static final String VIDEOS = "videos";
+
+        private Parameter() {}
 
     }
 

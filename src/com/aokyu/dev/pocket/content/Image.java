@@ -12,7 +12,7 @@ import android.os.Parcelable;
 
 public class Image extends MediaItem implements Parcelable {
 
-    private interface Parameter {
+    private final class Parameter {
 
         public static final String ITEM_ID = "item_id";
         public static final String IMAGE_ID = "image_id";
@@ -21,6 +21,8 @@ public class Image extends MediaItem implements Parcelable {
         public static final String HEIGHT = "height";
         public static final String CREDIT = "credit";
         public static final String CAPTION = "caption";
+
+        private Parameter() {}
 
     }
 

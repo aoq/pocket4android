@@ -1,6 +1,6 @@
 package com.aokyu.dev.pocket.error;
 
-public interface ErrorCode {
+public final class ErrorCode {
 
     public static final int UNKNOWN = -1;
 
@@ -13,5 +13,7 @@ public interface ErrorCode {
     public static final int MISSING_CODE = 182;
     public static final int CODE_NOT_FOUND = 185;
     public static final int POCKET_SERVER_ISSUE = 199;
+
+    private ErrorCode() {}
 
 }

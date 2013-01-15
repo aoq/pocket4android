@@ -10,11 +10,13 @@ import java.net.SocketAddress;
 
 import android.text.TextUtils;
 
-public class HttpUtils {
+public final class HttpUtils {
 
     private static final String USER_AGENT = "http.agent";
     private static final String PROXY_HOST = "http.proxyHost";
     private static final String PROXY_PORT = "http.proxyPort";
+
+    private HttpUtils() {}
 
     public static String getDefaultUserAgent() {
         String userAgent = System.getProperty(USER_AGENT);

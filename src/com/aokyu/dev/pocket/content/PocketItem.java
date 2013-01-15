@@ -4,7 +4,7 @@
 
 package com.aokyu.dev.pocket.content;
 
-class PocketItem {
+/* package */ class PocketItem {
 
     private String mUid;
 

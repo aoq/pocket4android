@@ -20,7 +20,7 @@ import com.aokyu.dev.pocket.util.JSONUtils;
 
 public class RetrieveResponse extends Response {
 
-    public interface Parameter extends ResponseParameter {
+    public final class Parameter {
 
         public static final String STATUS = "status";
         public static final String LIST = "list";
@@ -40,6 +40,8 @@ public class RetrieveResponse extends Response {
         public static final String AUTHORS = "authors";
         public static final String IMAGES = "images";
         public static final String VIDEOS = "videos";
+
+        private Parameter() {}
 
     }
 

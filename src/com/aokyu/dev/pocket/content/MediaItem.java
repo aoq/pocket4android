@@ -4,7 +4,7 @@
 
 package com.aokyu.dev.pocket.content;
 
-class MediaItem extends PocketItem {
+/* package */ class MediaItem extends PocketItem {
 
     private long mId;
     private String mSource;

@@ -6,10 +6,12 @@ package com.aokyu.dev.pocket.util;
 
 import com.aokyu.dev.pocket.ConsumerKey;
 
-public class PocketUtils {
+public final class PocketUtils {
 
     private static final String APP_ID_PREFIX = "pocketapp";
     private static final String REDIRECT_URI_SUFFIX = ":authorizationFinished";
+
+    private PocketUtils() {}
 
     public static String getAppId(ConsumerKey consumerKey) {
         String key = consumerKey.get();

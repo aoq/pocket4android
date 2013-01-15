@@ -4,7 +4,7 @@
 
 package com.aokyu.dev.pocket;
 
-public interface RetrieveRequestParameter extends RequestParameter {
+public final class RetrieveRequestParameter {
 
     public static final String ACCESS_TOKEN = "access_token";
     public static final String CONSUMER_KEY = "consumer_key";
@@ -51,4 +51,7 @@ public interface RetrieveRequestParameter extends RequestParameter {
         public static final String SIMPLE = "simple";
         public static final String COMPLETE = "complete";
     }
+
+    private RetrieveRequestParameter() {}
+
 }

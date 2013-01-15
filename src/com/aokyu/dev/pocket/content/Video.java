@@ -13,7 +13,7 @@ import android.os.Parcelable;
 
 public class Video extends MediaItem implements Parcelable {
 
-    private interface Parameter {
+    public final class Parameter {
 
         public static final String ITEM_ID = "item_id";
         public static final String VIDEO_ID = "video_id";
@@ -22,6 +22,8 @@ public class Video extends MediaItem implements Parcelable {
         public static final String HEIGHT = "height";
         public static final String TYPE = "type";
         public static final String VID = "vid";
+
+        private Parameter() {}
 
     }
 

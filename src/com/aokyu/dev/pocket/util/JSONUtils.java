@@ -10,7 +10,9 @@ import java.util.Iterator;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class JSONUtils {
+public final class JSONUtils {
+
+    private JSONUtils() {}
 
     @SuppressWarnings("unchecked")
     public static String[] getKeys(JSONObject obj) {

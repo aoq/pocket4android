@@ -7,7 +7,7 @@ package com.aokyu.dev.pocket;
 
 public class AddRequest extends Request {
 
-    public interface Parameter extends RequestParameter {
+    public final class Parameter {
 
         public static final String ACCESS_TOKEN = "access_token";
         public static final String CONSUMER_KEY = "consumer_key";
@@ -15,6 +15,8 @@ public class AddRequest extends Request {
         public static final String TAGS = "tags";
         public static final String TWEET_ID = "tweet_id";
         public static final String URL = "url";
+
+        private Parameter() {}
 
     }
 

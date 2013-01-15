@@ -10,7 +10,7 @@ import org.json.JSONObject;
 
 public class ModifyResponse extends Response {
 
-    public interface Parameter {
+    public final class Parameter {
 
         public static final String ACTION_RESULTS = "action_results";
         public static final String STATUS = "status";
