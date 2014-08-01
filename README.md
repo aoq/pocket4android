@@ -13,7 +13,8 @@ Found a way to avoid it by using WebView control. However, this is against Pocke
 > in a new tab; do not present this page in a webview or screen 
 > within your application. Doing so violates Pocket's API guidelines.
 > If you feel like your app should have an exemption, please contact
-> us at api@getpocket.com with your request.*
+> us at api@getpocket.com with your request.*  
+> (see http://getpocket.com/developer/docs/authentication)
 
 So, one must ask Pocket for permission to use WebView, or live with the ugly flash... The PocketTest app uses WebView. Will try to add another branch with the standard way of using the default platform browser, time permitting...
 
