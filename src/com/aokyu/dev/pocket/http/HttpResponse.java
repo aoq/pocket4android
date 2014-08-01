@@ -26,6 +26,11 @@ public class HttpResponse {
         mConnection = connection;
     }
 
+    public HttpResponse followRedirects(boolean follow) {
+        mConnection.setInstanceFollowRedirects(follow);
+        return this;
+    }
+
     public int getStatusCode() throws IOException {
         return mConnection.getResponseCode();
     }
