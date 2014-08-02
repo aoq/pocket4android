@@ -18,6 +18,10 @@
         <option name="name" value="app: com.hyperionics.PocketTest" />
         <option name="packageNamePattern" value="com.hyperionics.PocketTest" />
       </filter>
+      <filter>
+        <option name="name" value="app: com.hyperionics.PocketTestBrowser" />
+        <option name="packageNamePattern" value="com.hyperionics.PocketTestBrowser" />
+      </filter>
     </filters>
   </component>
   <component name="AndroidLayoutPreviewToolWindow">
@@ -32,7 +36,7 @@
       </config>
     </shared>
     <layouts>
-      <layout url="file://$PROJECT_DIR$/PocketTest/res/layout/pocket_activity.xml">
+      <layout url="file://$PROJECT_DIR$/PocketTestWebView/res/layout/pocket_activity.xml">
         <config>
           <theme>@android:style/Theme.Holo.CompactMenu</theme>
         </config>
@@ -44,7 +48,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="95803d4f-2f77-45ba-8cc1-6f5c8414cdff" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PocketTestBrowser/AndroidManifest.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/PocketTestBrowser/src/com/hyperionics/PocketTestBrowser/PocketActivity.java" />
+      <change type="DELETED" beforePath="D:\github\pocket4android\PocketTest\AndroidManifest.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\github\pocket4android\PocketTest\res\layout\browser.xml" afterPath="" />
+      <change type="DELETED" beforePath="D:\github\pocket4android\PocketTest\src\com\hyperionics\PocketTest\PocketActivity.java" afterPath="" />
+      <change type="DELETED" beforePath="D:\github\pocket4android\PocketTest\src\com\hyperionics\PocketTest\SimpleBrowser.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MOVED" beforePath="D:\github\pocket4android\PocketTest\PocketTest.iml" afterPath="$PROJECT_DIR$/PocketTestBrowser/PocketTestBrowser.iml" />
+      <change type="MOVED" beforePath="D:\github\pocket4android\PocketTest\project.properties" afterPath="$PROJECT_DIR$/PocketTestBrowser/project.properties" />
+      <change type="MOVED" beforePath="D:\github\pocket4android\PocketTest\res\drawable-hdpi\ic_launcher.png" afterPath="$PROJECT_DIR$/PocketTestBrowser/res/drawable-hdpi/ic_launcher.png" />
+      <change type="MOVED" beforePath="D:\github\pocket4android\PocketTest\res\drawable-mdpi\ic_launcher.png" afterPath="$PROJECT_DIR$/PocketTestBrowser/res/drawable-mdpi/ic_launcher.png" />
+      <change type="MOVED" beforePath="D:\github\pocket4android\PocketTest\res\drawable-xhdpi\ic_launcher.png" afterPath="$PROJECT_DIR$/PocketTestBrowser/res/drawable-xhdpi/ic_launcher.png" />
+      <change type="MOVED" beforePath="D:\github\pocket4android\PocketTest\res\drawable\icon.png" afterPath="$PROJECT_DIR$/PocketTestBrowser/res/drawable/icon.png" />
+      <change type="MOVED" beforePath="D:\github\pocket4android\PocketTest\res\layout\pocket_activity.xml" afterPath="$PROJECT_DIR$/PocketTestBrowser/res/layout/pocket_activity.xml" />
+      <change type="MOVED" beforePath="D:\github\pocket4android\PocketTest\res\values\strings.xml" afterPath="$PROJECT_DIR$/PocketTestBrowser/res/values/strings.xml" />
+      <change type="MOVED" beforePath="D:\github\pocket4android\PocketTest\src\com\hyperionics\PocketTest\AndyUtil.java" afterPath="$PROJECT_DIR$/PocketTestBrowser/src/com/hyperionics/PocketTestBrowser/AndyUtil.java" />
+      <change type="MOVED" beforePath="D:\github\pocket4android\PocketTest\src\com\hyperionics\PocketTest\Lt.java" afterPath="$PROJECT_DIR$/PocketTestBrowser/src/com/hyperionics/PocketTestBrowser/Lt.java" />
     </list>
     <ignored path="pocket4android.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -108,57 +130,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="PocketActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PocketTest/src/com/hyperionics/PocketTest/PocketActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="765">
-              <caret line="20" column="80" selection-start-line="20" selection-start-column="80" selection-end-line="20" selection-end-column="80" />
-              <folding>
-                <element signature="docComment;class#PocketActivity#0" expanded="false" />
-                <element signature="method#onCreate#0;class#PocketActivity#0" expanded="false" />
-                <element signature="method#onStart#0;class#PocketActivity#0" expanded="false" />
-                <element signature="method#onPause#0;class#PocketActivity#0" expanded="false" />
-                <element signature="method#onResume#0;class#PocketActivity#0" expanded="false" />
-                <element signature="method#onRetrieve#0;class#PocketActivity#0" expanded="false" />
-                <element signature="class#1864:3721" expanded="false" />
-                <element signature="method#runInBg#0;class#1864:3721" expanded="false" />
-                <element signature="e#2275#2300#0" expanded="false" />
-                <element signature="method#onFinished#0;class#1864:3721" expanded="false" />
-                <element signature="method#onAuthorizationFinished#0;class#PocketActivity#0" expanded="false" />
-                <element signature="class#3847:4395" expanded="false" />
-                <element signature="method#runInBg#0;class#3847:4395" expanded="false" />
-                <element signature="method#onFinished#0;class#3847:4395" expanded="false" />
-                <element signature="method#onRequestContinued#0;class#PocketActivity#0" expanded="false" />
-                <element signature="method#pocketLogin#0;class#PocketActivity#0" expanded="false" />
-                <element signature="class#6532:7232" expanded="false" />
-                <element signature="method#runInBg#0;class#6532:7232" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.37142858" vertical-offset="0" max-vertical-offset="595">
+              <caret line="11" column="75" selection-start-line="11" selection-start-column="75" selection-end-line="11" selection-end-column="75" />
+              <folding />
+            </state>
+          </provider>
           <provider editor-type-id="MarkdownPreviewEditor">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.34228188" vertical-offset="0" max-vertical-offset="596">
-              <caret line="9" column="60" selection-start-line="9" selection-start-column="60" selection-end-line="9" selection-end-column="60" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pocket_activity.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/PocketTest/res/layout/pocket_activity.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-17.72" vertical-offset="33" max-vertical-offset="714">
-              <caret line="28" column="86" selection-start-line="28" selection-start-column="86" selection-end-line="28" selection-end-column="86" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer">
             <state />
           </provider>
         </entry>
@@ -197,14 +177,21 @@
         <option value="$PROJECT_DIR$/PocketTest/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/PocketTest/res/layout/pocket_activity.xml" />
         <option value="$PROJECT_DIR$/PocketTest/src/com/hyperionics/PocketTest/PocketActivity.java" />
+        <option value="$PROJECT_DIR$/PocketTestWebView/project.properties" />
+        <option value="$PROJECT_DIR$/PocketTestWebView/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/PocketTestBrowser/src/com/hyperionics/PocketTestBrowser/MainActivity.java" />
+        <option value="$PROJECT_DIR$/PocketTestBrowser/src/com/hyperionics/PocketTestBrowser/Lt.java" />
+        <option value="$PROJECT_DIR$/PocketTestBrowser/src/com/hyperionics/PocketTestBrowser/PocketActivity.java" />
+        <option value="$PROJECT_DIR$/PocketTestWebView/src/com/hyperionics/PocketTest/PocketActivity.java" />
+        <option value="$PROJECT_DIR$/PocketTestBrowser/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="56" />
-    <option name="y" value="63" />
-    <option name="width" value="1371" />
+    <option name="x" value="63" />
+    <option name="y" value="47" />
+    <option name="width" value="1804" />
     <option name="height" value="1119" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -233,7 +220,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -255,6 +241,7 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -271,7 +258,7 @@
     <property name="recentsLimit" value="5" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.25608343" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="192.168.56.101:5555" />
@@ -286,18 +273,20 @@
       <recent name="com.hyperionics.PocketTest" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\github\pocket4android\PocketTestBrowser\src\com\hyperionics\PocketTestBrowser" />
+      <recent name="D:\github\pocket4android\PocketTestBrowser" />
+      <recent name="D:\github\pocket4android\PocketTestBrowser\res" />
+      <recent name="D:\github\pocket4android" />
       <recent name="D:\github\pocket4android\PocketTest\libs" />
-      <recent name="D:\github\pocket4android\PocketTest\res\layout" />
-      <recent name="D:\github\pocket4android\PocketTest\src\com\hyperionics\PocketTest" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\github\pocket4android\PocketTest\res" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.hyperionics.PocketTest" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\github\pocket4android\PocketTest\res" />
+    </key>
   </component>
-  <component name="RunManager" selected="Android Application.PocketTest">
+  <component name="RunManager" selected="Android Application.Test WebView">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
@@ -477,8 +466,8 @@
       <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
       <method />
     </configuration>
-    <configuration default="false" name="PocketTest" type="AndroidRunConfigurationType" factoryName="Android Application">
-      <module name="PocketTest" />
+    <configuration default="false" name="Test WebView" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="PocketTestWebView" />
       <option name="ACTIVITY_CLASS" value="" />
       <option name="MODE" value="default_activity" />
       <option name="DEPLOY" value="true" />
@@ -499,8 +488,31 @@
       <ConfigurationWrapper RunnerId="AndroidDebugRunner" />
       <method />
     </configuration>
-    <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="Android Application.PocketTest" />
+    <configuration default="false" name="Test Browser" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="PocketTestBrowser" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="true" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="USE_COMMAND_LINE" value="true" />
+      <option name="COMMAND_LINE" value="" />
+      <option name="WIPE_USER_DATA" value="false" />
+      <option name="DISABLE_BOOT_ANIMATION" value="false" />
+      <option name="NETWORK_SPEED" value="full" />
+      <option name="NETWORK_LATENCY" value="none" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <RunnerSettings RunnerId="AndroidDebugRunner" />
+      <ConfigurationWrapper RunnerId="AndroidDebugRunner" />
+      <method />
+    </configuration>
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="Android Application.Test WebView" />
+      <item index="1" class="java.lang.String" itemvalue="Android Application.Test Browser" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -524,20 +536,21 @@
       <workItem from="1406896989066" duration="17842000" />
       <workItem from="1406927958972" duration="240000" />
       <workItem from="1406928622767" duration="1103000" />
+      <workItem from="1406929838904" duration="146000" />
+      <workItem from="1406991786792" duration="3533000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36470000" />
+    <option name="totallyTimeSpent" value="40149000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="56" y="63" width="1371" height="1119" extended-state="0" />
+    <frame x="63" y="47" width="1804" height="1119" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32952183" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32951945" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -547,19 +560,20 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32883817" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32952183" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32848233" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31073877" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23367697" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32952183" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32951945" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33056134" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32952183" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -627,46 +641,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/aokyu/dev/pocket/http/HttpRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="663">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PocketTest/res/drawable-xhdpi/ic_launcher.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://D:/android/android-sdk/sources/android-17/java/lang/Throwable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.66129035" vertical-offset="1851" max-vertical-offset="7531">
-          <caret line="158" column="21" selection-start-line="158" selection-start-column="21" selection-end-line="158" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/aokyu/dev/pocket/Request.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="646">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/aokyu/dev/pocket/RetrieveRequestParameter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="418" max-vertical-offset="1037">
-          <caret line="50" column="35" selection-start-line="50" selection-start-column="35" selection-end-line="50" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/aokyu/dev/pocket/RequestToken.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="833">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/android/android-sdk/sources/android-17/android/content/Context.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.58862877" vertical-offset="974" max-vertical-offset="45526">
@@ -759,14 +733,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PocketTest/project.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="619">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PocketTest/src/com/hyperionics/PocketTest/AndyUtil.java">
+    <entry file="file://$PROJECT_DIR$/PocketTestWebView/src/com/hyperionics/PocketTest/AndyUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.8002137" vertical-offset="50" max-vertical-offset="986">
           <caret line="230" column="119" selection-start-line="230" selection-start-column="119" selection-end-line="230" selection-end-column="119" />
@@ -781,7 +748,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PocketTest/src/com/hyperionics/PocketTest/Lt.java">
+    <entry file="file://$PROJECT_DIR$/PocketTestWebView/src/com/hyperionics/PocketTest/Lt.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5799677" vertical-offset="423" max-vertical-offset="1071">
           <caret line="55" column="79" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
@@ -799,11 +766,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
           <caret line="9" column="9" selection-start-line="9" selection-start-column="9" selection-end-line="9" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PocketTest/res/layout/browser.xml">
+    <entry file="file://$PROJECT_DIR$/PocketTestWebView/res/layout/browser.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="391">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -914,7 +880,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-6.04" vertical-offset="6802" max-vertical-offset="11118">
           <caret line="454" column="31" selection-start-line="454" selection-start-column="31" selection-end-line="454" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -922,18 +887,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="9683" max-vertical-offset="13039">
           <caret line="618" column="35" selection-start-line="618" selection-start-column="35" selection-end-line="618" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/aokyu/dev/pocket/PocketClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.68" vertical-offset="680" max-vertical-offset="3043">
-          <caret line="66" column="59" selection-start-line="66" selection-start-column="59" selection-end-line="66" selection-end-column="59" />
-          <folding>
-            <element signature="method#add#1;class#PocketClient#0" expanded="false" />
-            <element signature="method#add#2;class#PocketClient#0" expanded="false" />
-            <element signature="method#modify#0;class#PocketClient#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -948,22 +901,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="714">
           <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#2293#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-            <element signature="e#807#808#0" expanded="false" />
-            <element signature="e#859#860#0" expanded="false" />
-            <element signature="e#917#918#0" expanded="false" />
-            <element signature="e#969#970#0" expanded="false" />
-            <element signature="e#1017#1018#0" expanded="false" />
-            <element signature="e#1071#1072#0" expanded="false" />
-            <element signature="e#1138#1139#0" expanded="false" />
-            <element signature="e#1189#1190#0" expanded="false" />
-            <element signature="method#getResponseAsString#0;class#HttpResponse#0" expanded="false" />
-            <element signature="method#getResponseAsJSONObject#0;class#HttpResponse#0" expanded="false" />
-            <element signature="e#2249#2250#0" expanded="false" />
-            <element signature="e#2289#2290#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1096,7 +1033,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PocketTest/src/com/hyperionics/PocketTest/SimpleBrowser.java">
+    <entry file="file://$PROJECT_DIR$/PocketTestWebView/src/com/hyperionics/PocketTest/SimpleBrowser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="782">
           <caret line="24" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
@@ -1106,17 +1043,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PocketTest/AndroidManifest.xml">
+    <entry file="file://$PROJECT_DIR$/PocketTestWebView/res/layout/pocket_activity.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.41195476" vertical-offset="0" max-vertical-offset="619">
-          <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PocketTest/res/layout/pocket_activity.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.72" vertical-offset="33" max-vertical-offset="714">
+        <state vertical-scroll-proportion="0.0" vertical-offset="476" max-vertical-offset="629">
           <caret line="28" column="86" selection-start-line="28" selection-start-column="86" selection-end-line="28" selection-end-column="86" />
           <folding />
         </state>
@@ -1125,42 +1054,121 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PocketTest/src/com/hyperionics/PocketTest/PocketActivity.java">
+    <entry file="file://$PROJECT_DIR$/PocketTestBrowser/project.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="765">
-          <caret line="20" column="80" selection-start-line="20" selection-start-column="80" selection-end-line="20" selection-end-column="80" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="620">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PocketTestWebView/project.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.10967742" vertical-offset="0" max-vertical-offset="620">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/values-v11/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="170">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PocketTestBrowser/src/com/hyperionics/PocketTestBrowser/Lt.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33225808" vertical-offset="117" max-vertical-offset="1071">
+          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/aokyu/dev/pocket/PocketClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="266" max-vertical-offset="3043">
+          <caret line="59" column="23" selection-start-line="59" selection-start-column="23" selection-end-line="59" selection-end-column="23" />
           <folding>
-            <element signature="docComment;class#PocketActivity#0" expanded="false" />
-            <element signature="method#onCreate#0;class#PocketActivity#0" expanded="false" />
-            <element signature="method#onStart#0;class#PocketActivity#0" expanded="false" />
-            <element signature="method#onPause#0;class#PocketActivity#0" expanded="false" />
-            <element signature="method#onResume#0;class#PocketActivity#0" expanded="false" />
-            <element signature="method#onRetrieve#0;class#PocketActivity#0" expanded="false" />
-            <element signature="class#1864:3721" expanded="false" />
-            <element signature="method#runInBg#0;class#1864:3721" expanded="false" />
-            <element signature="e#2275#2300#0" expanded="false" />
-            <element signature="method#onFinished#0;class#1864:3721" expanded="false" />
-            <element signature="method#onAuthorizationFinished#0;class#PocketActivity#0" expanded="false" />
-            <element signature="class#3847:4395" expanded="false" />
-            <element signature="method#runInBg#0;class#3847:4395" expanded="false" />
-            <element signature="method#onFinished#0;class#3847:4395" expanded="false" />
-            <element signature="method#onRequestContinued#0;class#PocketActivity#0" expanded="false" />
-            <element signature="method#pocketLogin#0;class#PocketActivity#0" expanded="false" />
-            <element signature="class#6532:7232" expanded="false" />
-            <element signature="method#runInBg#0;class#6532:7232" expanded="false" />
+            <element signature="method#add#1;class#PocketClient#0" expanded="false" />
+            <element signature="method#add#2;class#PocketClient#0" expanded="false" />
+            <element signature="method#modify#0;class#PocketClient#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/PocketTestBrowser/src/com/hyperionics/PocketTestBrowser/AndyUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.34228188" vertical-offset="0" max-vertical-offset="596">
-          <caret line="9" column="60" selection-start-line="9" selection-start-column="60" selection-end-line="9" selection-end-column="60" />
+        <state vertical-scroll-proportion="0.4516129" vertical-offset="3749" max-vertical-offset="4369">
+          <caret line="253" column="1" selection-start-line="253" selection-start-column="1" selection-end-line="253" selection-end-column="1" />
+          <folding>
+            <element signature="e#9001#9002#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PocketTestBrowser/src/com/hyperionics/PocketTestBrowser/PocketActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.56" vertical-offset="0" max-vertical-offset="2023">
+          <caret line="25" column="64" selection-start-line="25" selection-start-column="64" selection-end-line="25" selection-end-column="64" />
+          <folding>
+            <element signature="method#onCreate#0;class#PocketActivity#0" expanded="false" />
+            <element signature="e#1419#1451#0" expanded="true" />
+            <element signature="e#1514#1518#0" expanded="true" />
+            <element signature="e#1520#1532#0" expanded="true" />
+            <element signature="e#1534#1555#0" expanded="true" />
+            <element signature="e#3534#3539#0" expanded="true" />
+            <element signature="e#3541#3545#0" expanded="true" />
+            <element signature="e#3547#3551#0" expanded="true" />
+            <element signature="e#4139#4144#0" expanded="true" />
+            <element signature="e#4146#4150#0" expanded="true" />
+            <element signature="e#4152#4156#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PocketTestWebView/src/com/hyperionics/PocketTest/PocketActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2295">
+          <caret line="23" column="73" selection-start-line="23" selection-start-column="73" selection-end-line="23" selection-end-column="73" />
+          <folding>
+            <element signature="method#onCreate#0;class#PocketActivity#0" expanded="false" />
+            <element signature="method#onStart#0;class#PocketActivity#0" expanded="false" />
+            <element signature="method#onPause#0;class#PocketActivity#0" expanded="false" />
+            <element signature="method#onResume#0;class#PocketActivity#0" expanded="false" />
+            <element signature="e#2429#2454#0" expanded="false" />
+            <element signature="method#onFinished#0;class#4001:4549" expanded="false" />
+            <element signature="method#onRequestContinued#0;class#PocketActivity#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PocketTestWebView/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="493">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PocketTestBrowser/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.63064516" vertical-offset="0" max-vertical-offset="620">
+          <caret line="23" column="52" selection-start-line="23" selection-start-column="52" selection-end-line="23" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.37142858" vertical-offset="0" max-vertical-offset="595">
+          <caret line="11" column="75" selection-start-line="11" selection-start-column="75" selection-end-line="11" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
       </provider>
     </entry>
   </component>
@@ -1191,7 +1199,7 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
-          <last-edited>Android (pocket4android)|Android</last-edited>
+          <last-edited>Android (PocketTestWebView)|Android</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1226,7 +1234,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>PocketTest</last-edited>
+          <last-edited>PocketTestBrowser</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

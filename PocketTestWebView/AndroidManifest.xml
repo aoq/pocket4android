@@ -10,19 +10,12 @@
 
         <activity
                 android:name=".PocketActivity"
-                android:label="Test Pocket Access"
+                android:label="PocketTest (WebView)"
                 android:launchMode="singleTask"
                 >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-            <intent-filter>
-                <!-- not needed the way we do auth -->
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="pocketapp30497" />
             </intent-filter>
         </activity>
         <activity android:name=".SimpleBrowser"/>
