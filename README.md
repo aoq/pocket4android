@@ -18,7 +18,7 @@ Found a way to avoid it by using WebView control, see PocketTestWebView app. How
 > us at api@getpocket.com with your request.*  
 > (see http://getpocket.com/developer/docs/authentication)
 
-So, one must ask Pocket for permission to use WebView, or live with the ugly flash... The PocketTest app uses WebView. Will try to add another branch with the standard way of using the default platform browser, time permitting...
+So, one must ask Pocket for permission to use WebView, or live with the ugly flash... 
 
 *~gregko*
 
