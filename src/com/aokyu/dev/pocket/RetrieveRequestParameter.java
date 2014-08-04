@@ -23,6 +23,7 @@ public final class RetrieveRequestParameter {
     public interface State {
         public static final String UNREAD = "unread";
         public static final String ARCHIVE = "archive";
+        public static final String ALL = "all";
     }
 
     public interface Favorite {

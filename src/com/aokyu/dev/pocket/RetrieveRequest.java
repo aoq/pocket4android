@@ -150,7 +150,8 @@ public class RetrieveRequest extends Request {
 
         public Builder setState(String state) {
             if (state.equals(RetrieveRequestParameter.State.ARCHIVE) ||
-                    state.equals(RetrieveRequestParameter.State.UNREAD)) {
+                    state.equals(RetrieveRequestParameter.State.UNREAD) ||
+                    state.equals(RetrieveRequestParameter.State.ALL)) {
                 mRequest.put(RetrieveRequestParameter.STATE, state);
             } else {
                 throw new IllegalArgumentException();
