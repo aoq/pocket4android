@@ -4,11 +4,14 @@
 
 package com.aokyu.dev.pocket.http;
 
-import java.util.HashMap;
-
 import org.json.JSONObject;
 
-public class HttpParameters extends HashMap<String, Object> {
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Set;
+
+public class HttpParameters extends HashMap<String, Object> implements MessageBody {
 
     private static final long serialVersionUID = -7410515868503883376L;
 
@@ -16,7 +19,49 @@ public class HttpParameters extends HashMap<String, Object> {
         super();
     }
 
-    public JSONObject toJSONObject() {
-        return new JSONObject(this);
+    public String toJson() {
+        JSONObject jsonObj = new JSONObject(this);
+        return jsonObj.toString();
     }
+
+    public String toParameter() {
+        StringBuilder builder = new StringBuilder();
+        Set<Entry<String, Object>> entries = entrySet();
+        boolean first = true;
+        for (Entry<String, Object> entry : entries) {
+            if (first) {
+                first = false;
+            } else {
+                builder.append("&");
+            }
+            String key = entry.getKey();
+            Object value = entry.getValue();
+            builder.append(key);
+            builder.append("=");
+            builder.append(value.toString());
+        }
+        return builder.toString();
+    }
+
+    public String toEncodedParameter() throws UnsupportedEncodingException {
+        StringBuilder builder = new StringBuilder();
+        Set<Entry<String, Object>> entries = entrySet();
+        boolean first = true;
+        for (Entry<String, Object> entry : entries) {
+            if (first) {
+                first = false;
+            } else {
+                builder.append("&");
+            }
+            String key = entry.getKey();
+            Object value = entry.getValue();
+            builder.append(key);
+            builder.append("=");
+            String valueAsString = value.toString();
+            String encoded = URLEncoder.encode(valueAsString, "UTF-8");
+            builder.append(encoded);
+        }
+        return builder.toString();
+    }
+    
 }

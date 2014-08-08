@@ -4,22 +4,12 @@
 
 package com.aokyu.dev.pocket;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
-
 import com.aokyu.dev.pocket.PocketServer.RequestType;
 import com.aokyu.dev.pocket.error.ErrorHandler;
 import com.aokyu.dev.pocket.error.ErrorResponse;
 import com.aokyu.dev.pocket.error.InvalidRequestException;
 import com.aokyu.dev.pocket.error.PocketException;
+import com.aokyu.dev.pocket.http.ContentType;
 import com.aokyu.dev.pocket.http.HttpClient;
 import com.aokyu.dev.pocket.http.HttpHeader;
 import com.aokyu.dev.pocket.http.HttpHeaders;
@@ -29,10 +19,18 @@ import com.aokyu.dev.pocket.http.HttpRequest;
 import com.aokyu.dev.pocket.http.HttpResponse;
 import com.aokyu.dev.pocket.util.PocketUtils;
 
-public class PocketClient {
+import org.json.JSONException;
+import org.json.JSONObject;
 
-    private static final String CONTENT_TYPE_JSON_WITH_UTF8 = "application/json; charset=UTF-8";
-    private static final String X_ACCEPT_JSON = "application/json";
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+public class PocketClient {
 
     private HttpClient mClient;
     private ConsumerKey mConsumerKey;
@@ -62,8 +60,8 @@ public class PocketClient {
         String endpoint = PocketServer.getEndpoint(RequestType.OAUTH_AUTHORIZE);
         URL requestUrl = new URL(endpoint);
         HttpHeaders headers = new HttpHeaders();
-        headers.put(HttpHeader.CONTENT_TYPE, CONTENT_TYPE_JSON_WITH_UTF8);
-        headers.put(HttpHeader.X_ACCEPT, X_ACCEPT_JSON);
+        headers.put(HttpHeader.CONTENT_TYPE, ContentType.JSON_WITH_UTF8.get());
+        headers.put(HttpHeader.X_ACCEPT, ContentType.JSON.get());
         headers.put(HttpHeader.HOST, requestUrl.getHost());
 
         HttpParameters parameters = new HttpParameters();
@@ -99,8 +97,8 @@ public class PocketClient {
         String endpoint = PocketServer.getEndpoint(RequestType.OAUTH_REQUEST);
         URL requestUrl = new URL(endpoint);
         HttpHeaders headers = new HttpHeaders();
-        headers.put(HttpHeader.CONTENT_TYPE, CONTENT_TYPE_JSON_WITH_UTF8);
-        headers.put(HttpHeader.X_ACCEPT, X_ACCEPT_JSON);
+        headers.put(HttpHeader.CONTENT_TYPE, ContentType.JSON_WITH_UTF8.get());
+        headers.put(HttpHeader.X_ACCEPT, ContentType.JSON.get());
         headers.put(HttpHeader.HOST, requestUrl.getHost());
 
         HttpParameters parameters = new HttpParameters();
@@ -169,8 +167,8 @@ public class PocketClient {
         String endpoint = PocketServer.getEndpoint(RequestType.ADD);
         URL requestUrl = new URL(endpoint);
         HttpHeaders headers = new HttpHeaders();
-        headers.put(HttpHeader.CONTENT_TYPE, CONTENT_TYPE_JSON_WITH_UTF8);
-        headers.put(HttpHeader.X_ACCEPT, X_ACCEPT_JSON);
+        headers.put(HttpHeader.CONTENT_TYPE, ContentType.JSON_WITH_UTF8.get());
+        headers.put(HttpHeader.X_ACCEPT, ContentType.JSON.get());
         headers.put(HttpHeader.HOST, requestUrl.getHost());
 
         addRequest.put(AddRequest.Parameter.ACCESS_TOKEN, accessToken.get());
@@ -215,8 +213,8 @@ public class PocketClient {
         String endpoint = PocketServer.getEndpoint(RequestType.RETRIEVE);
         URL requestUrl = new URL(endpoint);
         HttpHeaders headers = new HttpHeaders();
-        headers.put(HttpHeader.CONTENT_TYPE, CONTENT_TYPE_JSON_WITH_UTF8);
-        headers.put(HttpHeader.X_ACCEPT, X_ACCEPT_JSON);
+        headers.put(HttpHeader.CONTENT_TYPE, ContentType.JSON_WITH_UTF8.get());
+        headers.put(HttpHeader.X_ACCEPT, ContentType.JSON.get());
         headers.put(HttpHeader.HOST, requestUrl.getHost());
 
         retrieveRequest.put(AddRequest.Parameter.ACCESS_TOKEN, accessToken.get());
@@ -261,8 +259,8 @@ public class PocketClient {
         String endpoint = PocketServer.getEndpoint(RequestType.MODIFY);
         URL requestUrl = new URL(endpoint);
         HttpHeaders headers = new HttpHeaders();
-        headers.put(HttpHeader.CONTENT_TYPE, CONTENT_TYPE_JSON_WITH_UTF8);
-        headers.put(HttpHeader.X_ACCEPT, X_ACCEPT_JSON);
+        headers.put(HttpHeader.CONTENT_TYPE, ContentType.JSON_WITH_UTF8.get());
+        headers.put(HttpHeader.X_ACCEPT, ContentType.JSON.get());
         headers.put(HttpHeader.HOST, requestUrl.getHost());
 
         modifyRequest.put(AddRequest.Parameter.ACCESS_TOKEN, accessToken.get());

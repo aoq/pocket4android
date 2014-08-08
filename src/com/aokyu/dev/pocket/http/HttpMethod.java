@@ -7,5 +7,6 @@ package com.aokyu.dev.pocket.http;
 public enum HttpMethod {
 
     // Now only to use.
+    GET,
     POST;
 }

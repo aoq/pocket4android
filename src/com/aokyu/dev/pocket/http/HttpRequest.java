@@ -11,14 +11,14 @@ public class HttpRequest {
     private final HttpMethod mMethod;
     private final URL mUrl;
     private final HttpHeaders mHeaders;
-    private final HttpParameters mParameters;
+    private final MessageBody mMessageBody;
 
     public HttpRequest(HttpMethod method, URL url,
-            HttpHeaders requestHeaders, HttpParameters parameters) {
+            HttpHeaders requestHeaders, MessageBody messageBody) {
         mMethod = method;
         mUrl = url;
         mHeaders = requestHeaders;
-        mParameters = parameters;
+        mMessageBody = messageBody;
     }
 
     public HttpMethod getMethod() {
@@ -41,7 +41,7 @@ public class HttpRequest {
         return mHeaders;
     }
 
-    public HttpParameters getParameters() {
-        return mParameters;
+    public MessageBody getBody() {
+        return mMessageBody;
     }
 }

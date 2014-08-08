@@ -4,11 +4,14 @@
 
 package com.aokyu.dev.pocket;
 
-import java.util.Set;
+import com.aokyu.dev.pocket.http.HttpParameters;
+import com.aokyu.dev.pocket.http.MessageBody;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.aokyu.dev.pocket.http.HttpParameters;
+import java.io.UnsupportedEncodingException;
+import java.util.Set;
 
 public class Request {
 
@@ -38,7 +41,28 @@ public class Request {
         return mParameters;
     }
 
-    /* package */ JSONObject toJSONObject() {
-        return mParameters.toJSONObject();
+    public MessageBody getBody() {
+        return mParameters;
+    }
+
+    public String toJson() {
+        return mParameters.toJson();
+    }
+
+    public JSONObject toJSONObject() {
+        String json = toJson();
+        try {
+            return new JSONObject(json);
+        } catch (JSONException e) {
+            return null;
+        }
+    }
+
+    public String toParameter() {
+        return mParameters.toParameter();
+    }
+
+    public String toEncodedParameter() throws UnsupportedEncodingException {
+        return mParameters.toEncodedParameter();
     }
 }

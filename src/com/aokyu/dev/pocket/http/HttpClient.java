@@ -11,12 +11,17 @@ import java.net.HttpURLConnection;
 import java.net.PasswordAuthentication;
 import java.net.Proxy;
 import java.net.URL;
-import java.util.Iterator;
+import java.util.Map.Entry;
 import java.util.Set;
 
-import org.json.JSONObject;
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
 
 public class HttpClient {
+
+    private static final String DEFAULT_ENCODING = "UTF-8";
 
     public static class Configuration {
 
@@ -153,7 +158,26 @@ public class HttpClient {
 
     private Configuration mConfiguration;
 
+    private HostnameVerifier mVerifier;
+    private SSLContext mSslContext;
+
     public HttpClient() {}
+
+    public void setHostnameVerifier(HostnameVerifier verifier) {
+        mVerifier = verifier;
+    }
+
+    public HostnameVerifier getHostnameVerifier() {
+        return mVerifier;
+    }
+
+    public void setSslContext(SSLContext sslContext) {
+        mSslContext = sslContext;
+    }
+
+    public SSLContext getSslContext() {
+        return mSslContext;
+    }
 
     public void setConfiguration(Configuration config) {
         mConfiguration = config;
@@ -169,22 +193,56 @@ public class HttpClient {
         HttpResponse response = null;
         connection = prepareConnection(url);
 
-        String method = request.getMethodAsString();
-        connection.setRequestMethod(method);
+        if (connection instanceof HttpsURLConnection) {
+            if (mSslContext != null) {
+                SSLSocketFactory socketFactory = mSslContext.getSocketFactory();
+                ((HttpsURLConnection)connection).setSSLSocketFactory(socketFactory);
+            }
 
-        connection.setDoOutput(true);
-        connection.setDoInput(true);
+            if (mVerifier != null) {
+                ((HttpsURLConnection)connection).setHostnameVerifier(mVerifier);
+            }
+        }
+
+        HttpMethod method = request.getMethod();
+        connection.setRequestMethod(method.name());
 
         HttpHeaders headers = request.getHeaders();
         setHeaders(connection, headers);
 
-        HttpParameters parameters = request.getParameters();
-        JSONObject jsonObj = parameters.toJSONObject();
+        switch (method) {
+        case GET:
+            connection.setDoOutput(true);
+            connection.connect();
+            onConnected();
+            break;
+        case POST:
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+            connection.connect();
+            onConnected();
+            MessageBody body = request.getBody();
 
-        OutputStreamWriter writer =
-                new OutputStreamWriter(connection.getOutputStream());
-        writer.write(jsonObj.toString());
-        writer.close();
+            String contentType = headers.get(HttpHeader.CONTENT_TYPE);
+            String messageBody = null;
+            if (ContentType.JSON.equals(contentType) ||
+                    ContentType.JSON_WITH_UTF8.equals(contentType)) {
+                messageBody = body.toJson();
+            } else if (ContentType.X_WWW_FORM_URLENCODED.equals(contentType)) {
+                messageBody = body.toEncodedParameter();
+            } else {
+                throw new IllegalArgumentException("specified content type is not supported");
+            }
+
+            onRequest(contentType, messageBody);
+            OutputStreamWriter writer =
+                    new OutputStreamWriter(connection.getOutputStream(), DEFAULT_ENCODING);
+            writer.write(messageBody);
+            writer.flush();
+            writer.close();
+            onRequestCompleted();
+            break;
+        }
 
         response = new HttpResponse(connection);
         return response;
@@ -236,12 +294,22 @@ public class HttpClient {
     }
 
     private void setHeaders(HttpURLConnection connection, HttpHeaders headers) {
-        Set<String> keys = headers.keySet();
-        Iterator<String> it = keys.iterator();
-        while (it.hasNext()) {
-            String header = it.next();
-            String value = headers.get(header);
+        if (headers == null) {
+            return;
+        }
+
+        Set<Entry<String, String>> entries = headers.entrySet();
+        for (Entry<String, String> entry : entries) {
+            String header = entry.getKey();
+            String value = entry.getValue();
             connection.setRequestProperty(header, value);
         }
     }
+
+    protected void onConnected() {}
+
+    protected void onRequest(String contentType, String messageBody) {}
+
+    protected void onRequestCompleted() {}
+
 }

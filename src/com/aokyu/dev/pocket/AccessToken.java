@@ -4,14 +4,14 @@
 
 package com.aokyu.dev.pocket;
 
-import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+import com.aokyu.dev.pocket.error.PocketException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.aokyu.dev.pocket.error.PocketException;
+import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 public class AccessToken implements Serializable {
 
@@ -30,7 +30,6 @@ public class AccessToken implements Serializable {
     }
 
     /* package */ AccessToken(String response) {
-        // String#split() is available in JDK1.4 or later.
         String[] elements = response.split("&");
         mToken = obtainParameter(elements, KEY_TOKEN);
         mUsername = obtainParameter(elements, KEY_USERNAME);
