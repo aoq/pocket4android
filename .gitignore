@@ -8,9 +8,10 @@
 # Java class files
 *.class
 
-# generated files
+# generated and Idea files
 bin/
 gen/
+.idea/
 
 # Local configuration file (sdk path, etc)
 local.properties
