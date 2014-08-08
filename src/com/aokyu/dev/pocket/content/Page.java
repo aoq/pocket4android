@@ -382,7 +382,7 @@ public class Page extends PocketItem implements Parcelable {
                 JSONObject jsonAuthors =
                         jsonObj.getJSONObject(RetrieveResponse.Parameter.AUTHORS);
                 String[] authors = JSONUtils.getKeys(jsonAuthors);
-                mPage.setTags(authors);
+                mPage.setAuthors(authors);
             }
 
             if (!jsonObj.isNull(RetrieveResponse.Parameter.IMAGES)) {
