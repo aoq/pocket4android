@@ -1,5 +1,8 @@
 /*
- * Copyright 2012 Yu AOKI
+ * Copyright (c) 2012-2014 Yu AOKI
+ *
+ * This software may be modified and distributed under the terms
+ * of the MIT license.  See the LICENSE file for details.
  */
 
 package com.aokyu.dev.pocket.http;
@@ -63,5 +66,5 @@ public class HttpParameters extends HashMap<String, Object> implements MessageBo
         }
         return builder.toString();
     }
-    
+
 }
