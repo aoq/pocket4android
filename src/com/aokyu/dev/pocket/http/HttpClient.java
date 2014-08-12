@@ -224,28 +224,43 @@ public class HttpClient {
             MessageBody body = request.getBody();
 
             String contentType = headers.get(HttpHeader.CONTENT_TYPE);
-            String messageBody = null;
             if (ContentType.JSON.equals(contentType) ||
                     ContentType.JSON_WITH_UTF8.equals(contentType)) {
-                messageBody = body.toJson();
+                onJson(connection, body);
             } else if (ContentType.X_WWW_FORM_URLENCODED.equals(contentType)) {
-                messageBody = body.toEncodedParameter();
+                onUrlEncodedForm(connection, body);
             } else {
                 throw new IllegalArgumentException("specified content type is not supported");
             }
-
-            onRequest(contentType, messageBody);
-            OutputStreamWriter writer =
-                    new OutputStreamWriter(connection.getOutputStream(), DEFAULT_ENCODING);
-            writer.write(messageBody);
-            writer.flush();
-            writer.close();
-            onRequestCompleted();
             break;
         }
 
         response = new HttpResponse(connection);
         return response;
+    }
+
+    private void onJson(HttpURLConnection connection, MessageBody body)
+            throws IOException {
+        String messageBody = body.toJson();
+        byte[] bytes = messageBody.getBytes(DEFAULT_ENCODING);
+        OutputStreamWriter writer =
+                new OutputStreamWriter(connection.getOutputStream(), DEFAULT_ENCODING);
+        writer.write(messageBody);
+        writer.flush();
+        writer.close();
+        onRequestCompleted(bytes.length);
+    }
+
+    private void onUrlEncodedForm(HttpURLConnection connection, MessageBody body)
+            throws IOException {
+        String messageBody = body.toEncodedParameter();
+        byte[] bytes = messageBody.getBytes(DEFAULT_ENCODING);
+        OutputStreamWriter writer =
+                new OutputStreamWriter(connection.getOutputStream(), DEFAULT_ENCODING);
+        writer.write(messageBody);
+        writer.flush();
+        writer.close();
+        onRequestCompleted(bytes.length);
     }
 
     private HttpURLConnection prepareConnection(URL url) throws IOException {
@@ -308,8 +323,6 @@ public class HttpClient {
 
     protected void onConnected() {}
 
-    protected void onRequest(String contentType, String messageBody) {}
-
-    protected void onRequestCompleted() {}
+    protected void onRequestCompleted(int numberOfBytes) {}
 
 }
