@@ -7,9 +7,14 @@
 
 package com.aokyu.dev.pocket;
 
+import com.aokyu.dev.pocket.error.PocketException;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
+import java.util.Map;
 
 public class ModifyResponse extends Response {
 
@@ -20,8 +25,9 @@ public class ModifyResponse extends Response {
 
     }
 
-    /* package */ ModifyResponse(JSONObject jsonObj) throws JSONException {
-        super(jsonObj);
+    /* package */ ModifyResponse(JSONObject jsonObj, Map<String, List<String>> headerFields)
+            throws JSONException, PocketException {
+        super(jsonObj, headerFields);
     }
 
     public boolean[] getActionResults() throws JSONException {

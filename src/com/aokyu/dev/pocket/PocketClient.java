@@ -32,6 +32,8 @@ import android.net.Uri;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
+import java.util.Map;
 
 public class PocketClient {
 
@@ -183,10 +185,12 @@ public class PocketClient {
 
         HttpResponse response = null;
         JSONObject jsonObj = null;
+        Map<String, List<String>> responseHeaders = null;
         try {
             response = mClient.execute(request);
             if (response.getStatusCode() == HttpURLConnection.HTTP_OK) {
                 jsonObj = response.getResponseAsJSONObject();
+                responseHeaders = response.getHeaderFields();
             } else {
                 ErrorResponse error = new ErrorResponse(response);
                 mErrorHandler.handleResponse(error);
@@ -202,7 +206,7 @@ public class PocketClient {
         AddResponse addResponse = null;
         if (jsonObj != null) {
             try {
-                addResponse = new AddResponse(jsonObj);
+                addResponse = new AddResponse(jsonObj, responseHeaders);
             } catch (JSONException e) {
                 throw new PocketException(e.getMessage());
             }
@@ -229,10 +233,12 @@ public class PocketClient {
 
         HttpResponse response = null;
         JSONObject jsonObj = null;
+        Map<String, List<String>> responseHeaders = null;
         try {
             response = mClient.execute(request);
             if (response.getStatusCode() == HttpURLConnection.HTTP_OK) {
                 jsonObj = response.getResponseAsJSONObject();
+                responseHeaders = response.getHeaderFields();
             } else {
                 ErrorResponse error = new ErrorResponse(response);
                 mErrorHandler.handleResponse(error);
@@ -248,7 +254,7 @@ public class PocketClient {
         RetrieveResponse retrieveResponse = null;
         if (jsonObj != null) {
             try {
-                retrieveResponse = new RetrieveResponse(jsonObj);
+                retrieveResponse = new RetrieveResponse(jsonObj, responseHeaders);
             } catch (JSONException e) {
                 throw new PocketException(e.getMessage());
             }
@@ -275,10 +281,12 @@ public class PocketClient {
 
         HttpResponse response = null;
         JSONObject jsonObj = null;
+        Map<String, List<String>> responseHeaders = null;
         try {
             response = mClient.execute(request);
             if (response.getStatusCode() == HttpURLConnection.HTTP_OK) {
                 jsonObj = response.getResponseAsJSONObject();
+                responseHeaders = response.getHeaderFields();
             } else {
                 ErrorResponse error = new ErrorResponse(response);
                 mErrorHandler.handleResponse(error);
@@ -294,7 +302,7 @@ public class PocketClient {
         ModifyResponse modifyResponse = null;
         if (jsonObj != null) {
             try {
-                modifyResponse = new ModifyResponse(jsonObj);
+                modifyResponse = new ModifyResponse(jsonObj, responseHeaders);
             } catch (JSONException e) {
                 throw new PocketException(e.getMessage());
             }

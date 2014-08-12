@@ -7,14 +7,18 @@
 
 package com.aokyu.dev.pocket;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.aokyu.dev.pocket.content.Image;
 import com.aokyu.dev.pocket.content.Page.ImageState;
 import com.aokyu.dev.pocket.content.Page.VideoState;
 import com.aokyu.dev.pocket.content.Video;
+import com.aokyu.dev.pocket.error.PocketException;
 import com.aokyu.dev.pocket.util.JSONUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
+import java.util.Map;
 
 public class AddResponse extends Response {
 
@@ -49,8 +53,9 @@ public class AddResponse extends Response {
 
     }
 
-    /* package */ AddResponse(JSONObject jsonObj) throws JSONException {
-        super(jsonObj, Parameter.ITEM);
+    /* package */ AddResponse(JSONObject jsonObj, Map<String, List<String>> headerFields)
+            throws JSONException, PocketException {
+        super(jsonObj, Parameter.ITEM, headerFields);
     }
 
     public String getUID() {

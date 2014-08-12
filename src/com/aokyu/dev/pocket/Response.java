@@ -7,13 +7,16 @@
 
 package com.aokyu.dev.pocket;
 
-import java.util.Set;
+import com.aokyu.dev.pocket.error.PocketException;
+import com.aokyu.dev.pocket.http.HttpParameters;
+import com.aokyu.dev.pocket.util.JSONUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.aokyu.dev.pocket.http.HttpParameters;
-import com.aokyu.dev.pocket.util.JSONUtils;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class Response {
 
@@ -52,7 +55,11 @@ public class Response {
 
     private HttpParameters mParameters = new HttpParameters();
 
-    protected Response(JSONObject jsonObj) throws JSONException {
+    private UserLimit mUserLimit;
+    private ClientLimit mClientLimit;
+
+    protected Response(JSONObject jsonObj, Map<String, List<String>> headerFields)
+            throws JSONException, PocketException {
         if (jsonObj != null) {
             String[] keys = JSONUtils.getKeys(jsonObj);
             int size = keys.length;
@@ -62,9 +69,13 @@ public class Response {
                 put(key, value);
             }
         }
+
+        mUserLimit = new UserLimit(headerFields);
+        mClientLimit = new ClientLimit(headerFields);
     }
 
-    protected Response(JSONObject jsonObj, String rootKey) throws JSONException {
+    protected Response(JSONObject jsonObj, String rootKey, Map<String, List<String>> headerFields)
+            throws JSONException, PocketException {
         JSONObject obj = jsonObj.getJSONObject(rootKey);
         if (obj != null) {
             String[] keys = JSONUtils.getKeys(obj);
@@ -75,6 +86,9 @@ public class Response {
                 put(key, value);
             }
         }
+
+        mUserLimit = new UserLimit(headerFields);
+        mClientLimit = new ClientLimit(headerFields);
     }
 
     /* package */ void put(String key, Object value) {
@@ -95,6 +109,14 @@ public class Response {
 
     public boolean containsKey(String key) {
         return mParameters.containsKey(key);
+    }
+
+    public UserLimit getUserRateLimit() {
+        return mUserLimit;
+    }
+
+    public ClientLimit getClientRateLimit() {
+        return mClientLimit;
     }
 
     public Status getStatus() {

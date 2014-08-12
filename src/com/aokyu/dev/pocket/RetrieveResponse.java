@@ -7,19 +7,21 @@
 
 package com.aokyu.dev.pocket;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import com.aokyu.dev.pocket.content.Image;
 import com.aokyu.dev.pocket.content.Page;
 import com.aokyu.dev.pocket.content.Page.ImageState;
 import com.aokyu.dev.pocket.content.Page.VideoState;
 import com.aokyu.dev.pocket.content.Video;
+import com.aokyu.dev.pocket.error.PocketException;
 import com.aokyu.dev.pocket.util.JSONUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class RetrieveResponse extends Response {
 
@@ -48,8 +50,9 @@ public class RetrieveResponse extends Response {
 
     }
 
-    /* package */ RetrieveResponse(JSONObject jsonObj) throws JSONException {
-        super(jsonObj, Parameter.LIST);
+    /* package */ RetrieveResponse(JSONObject jsonObj, Map<String, List<String>> headerFields)
+            throws JSONException, PocketException {
+        super(jsonObj, Parameter.LIST, headerFields);
     }
 
     public String[] getUIDs() {
