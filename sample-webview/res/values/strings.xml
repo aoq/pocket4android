@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PocketTest</string>
+    <string name="label_title">PocketTest (WebView)</string>
+    <string name="label_login">Login</string>
+    <string name="label_retrieve">Retrieve</string>
+</resources>
