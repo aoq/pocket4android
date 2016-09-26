@@ -17,7 +17,7 @@ public final class PocketUtils {
     private PocketUtils() {}
 
     public static String getAppId(ConsumerKey consumerKey) {
-        String key = consumerKey.get();
+        String key = consumerKey.getKey();
         String appId = null;
         if (key != null) {
             String[] elements = key.split("-");

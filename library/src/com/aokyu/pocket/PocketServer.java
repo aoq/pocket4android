@@ -13,7 +13,8 @@ import com.aokyu.pocket.util.PocketUtils;
 public class PocketServer {
 
     private static final String SERVER_URL = "https://getpocket.com";
-    private static final String REDIRECT_FORMAT = "/auth/authorize?request_token=%s&redirect_uri=%s";
+    private static final String REDIRECT_FORMAT =
+            "/auth/authorize?request_token=%s&redirect_uri=%s";
 
     public enum RequestType {
 
@@ -25,7 +26,7 @@ public class PocketServer {
 
         private String mEndpoint;
 
-        private RequestType(String endpoint) {
+        RequestType(String endpoint) {
             mEndpoint = endpoint;
         }
 
@@ -40,8 +41,8 @@ public class PocketServer {
 
     public static String getRedirectUrl(ConsumerKey consumerKey, RequestToken requestToken) {
         String format = SERVER_URL + REDIRECT_FORMAT;
-        String redirectUrl =
-                String.format(format, requestToken.get(), PocketUtils.getRedirectUri(consumerKey));
+        String redirectUrl = String.format(
+                format, requestToken.getToken(), PocketUtils.getRedirectUri(consumerKey));
         return redirectUrl;
     }
 }

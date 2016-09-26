@@ -7,33 +7,41 @@
 
 package com.aokyu.pocket.http;
 
+import android.util.Pair;
+
 /**
  * The available content types for {@link HttpClient}.
  */
 public enum ContentType {
 
+    UNKNOWN(""),
     X_WWW_FORM_URLENCODED("application/x-www-form-urlencoded"),
-    X_WWW_FORM_URLENCODED_UTF8("application/x-www-form-urlencoded; charset=UTF-8"),
     JSON("application/json"),
-    JSON_UTF8("application/json; charset=UTF-8"),
-    MULTIPART_DATA("multipart/form-data; boundary="),
+    MULTIPART_DATA("multipart/form-data"),
     OCTET_STREAM("application/octet-stream");
 
-    private String mValue;
+    private static final String SEPARATOR = "; ";
 
-    private ContentType(String value) {
-        mValue = value;
+    private final String mType;
+
+    private ContentType(String type) {
+        mType = type;
     }
 
-    public String get() {
-        return mValue;
+    public String toHeader(Pair<String, String>... params) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(mType);
+        for (Pair<String, String> param : params) {
+            builder.append(SEPARATOR).append(param.first).append("=").append(param.second);
+        }
+        return builder.toString();
     }
 
     public boolean equals(String value) {
         if (value == null) {
             return false;
         } else {
-            return value.equals(mValue) || value.startsWith(mValue);
+            return mType.equals(value);
         }
     }
 }

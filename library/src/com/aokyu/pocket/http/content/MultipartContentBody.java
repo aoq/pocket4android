@@ -92,7 +92,7 @@ public class MultipartContentBody extends AbstractMessageBody {
                 String filePath = element.getFilePath();
                 input = new FileInputStream(filePath);
                 reader = new BufferedInputStream(input);
-                int available = 0;
+                int available;
                 while ((available = reader.available()) > 0) {
                     byte[] bytes = new byte[available];
                     if (reader.read(bytes) == EOF) {

@@ -14,7 +14,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.aokyu.pocket.RetrieveResponse;
-import com.aokyu.pocket.util.JSONUtils;
+import com.aokyu.pocket.util.JsonUtils;
 
 public class Page extends PocketItem implements Parcelable {
 
@@ -377,21 +377,21 @@ public class Page extends PocketItem implements Parcelable {
             if (!jsonObj.isNull(RetrieveResponse.Parameter.TAGS)) {
                 JSONObject jsonTags =
                         jsonObj.getJSONObject(RetrieveResponse.Parameter.TAGS);
-                String[] tags = JSONUtils.getKeys(jsonTags);
+                String[] tags = JsonUtils.getKeys(jsonTags);
                 mPage.setTags(tags);
             }
 
             if (!jsonObj.isNull(RetrieveResponse.Parameter.AUTHORS)) {
                 JSONObject jsonAuthors =
                         jsonObj.getJSONObject(RetrieveResponse.Parameter.AUTHORS);
-                String[] authors = JSONUtils.getKeys(jsonAuthors);
+                String[] authors = JsonUtils.getKeys(jsonAuthors);
                 mPage.setAuthors(authors);
             }
 
             if (!jsonObj.isNull(RetrieveResponse.Parameter.IMAGES)) {
                 JSONObject jsonImages =
                         jsonObj.getJSONObject(RetrieveResponse.Parameter.IMAGES);
-                String[] keys = JSONUtils.getKeys(jsonImages);
+                String[] keys = JsonUtils.getKeys(jsonImages);
                 Image[] images = null;
                 int size = keys.length;
                 if (size > 0) {
@@ -413,7 +413,7 @@ public class Page extends PocketItem implements Parcelable {
             if (!jsonObj.isNull(RetrieveResponse.Parameter.VIDEOS)) {
                 JSONObject jsonVideos =
                         jsonObj.getJSONObject(RetrieveResponse.Parameter.VIDEOS);
-                String[] keys = JSONUtils.getKeys(jsonVideos);
+                String[] keys = JsonUtils.getKeys(jsonVideos);
                 Video[] videos = null;
                 int size = keys.length;
                 if (size > 0) {

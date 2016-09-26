@@ -11,7 +11,7 @@ import com.aokyu.pocket.content.Page;
 import com.aokyu.pocket.content.Image;
 import com.aokyu.pocket.content.Video;
 import com.aokyu.pocket.error.PocketException;
-import com.aokyu.pocket.util.JSONUtils;
+import com.aokyu.pocket.util.JsonUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,7 +24,7 @@ import java.util.Map;
  */
 public class AddResponse extends Response {
 
-    public final class Parameter {
+    /* package */ final class Parameter {
 
         public static final String ITEM = "item";
         public static final String STATUS = "status";
@@ -168,8 +168,7 @@ public class AddResponse extends Response {
 
     public boolean isArticle() {
         try {
-            int isArticle =
-                    Integer.parseInt((String) get(Parameter.IS_ARTICLE));
+            int isArticle = Integer.parseInt((String) get(Parameter.IS_ARTICLE));
             switch (isArticle) {
             case 0:
                 return false;
@@ -195,7 +194,7 @@ public class AddResponse extends Response {
     public Image[] getImages() {
         Image[] images = null;
         JSONObject jsonImages = (JSONObject) get(Parameter.IMAGES);
-        String[] keys = JSONUtils.getKeys(jsonImages);
+        String[] keys = JsonUtils.getKeys(jsonImages);
         int size = keys.length;
         if (size > 0) {
             images = new Image[size];
@@ -214,7 +213,7 @@ public class AddResponse extends Response {
     public Video[] getVideos() {
         Video[] videos = null;
         JSONObject jsonVideo = (JSONObject) get(Parameter.VIDEOS);
-        String[] keys = JSONUtils.getKeys(jsonVideo);
+        String[] keys = JsonUtils.getKeys(jsonVideo);
         int size = keys.length;
         if (size > 0) {
             videos = new Video[size];

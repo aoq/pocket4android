@@ -19,9 +19,7 @@ import java.net.URLEncoder;
 /**
  * TODO: This class should be replaced with a class using a JSON-POJO mapper.
  */
-public class AccessToken implements Serializable {
-
-    private static final long serialVersionUID = 5522663727862182215L;
+public class AccessToken {
 
     private static final String KEY_TOKEN = "access_token";
     private static final String KEY_USERNAME = "username";
@@ -70,7 +68,7 @@ public class AccessToken implements Serializable {
         return value;
     }
 
-    public String get() {
+    public String getToken() {
         return mToken;
     }
 

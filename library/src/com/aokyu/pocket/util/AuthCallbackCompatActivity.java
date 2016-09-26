@@ -5,32 +5,43 @@
  * of the MIT license.  See the LICENSE file for details.
  */
 
-package com.aokyu.pocket;
+package com.aokyu.pocket.util;
 
-import com.aokyu.pocket.util.PocketUtils;
+import com.aokyu.pocket.AuthorizationCallback;
+import com.aokyu.pocket.ConsumerKey;
+import com.aokyu.pocket.RequestToken;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 
+/**
+ * The utility class to handle authorization callbacks in an {@link AppCompatActivity}.
+ * @see AuthCallbackActivity
+ */
 public abstract class AuthCallbackCompatActivity extends AppCompatActivity
         implements AuthorizationCallback {
 
     private ConsumerKey mConsumerKey;
+
     private RequestToken mRequestToken;
 
-    public abstract void onAuthorizationFinished(RequestToken requestToken);
+    /**
+     * Called when the authorization was finished with the request token.
+     *
+     * @param consumerKey The consumer key.
+     * @param requestToken The request token.
+     */
+    public abstract void onAuthorizationFinished(ConsumerKey consumerKey,
+            RequestToken requestToken);
 
     @Override
-    public void onRequested(ConsumerKey consumerKey, RequestToken requestToken) {
+    public boolean onRequestTokenRetrieved(Context context, ConsumerKey consumerKey,
+            RequestToken requestToken) {
         mConsumerKey = consumerKey;
         mRequestToken = requestToken;
-    }
-
-    @Override
-    public Activity onRequestContinued() {
-        return this;
+        return false;
     }
 
     @Override
@@ -39,7 +50,7 @@ public abstract class AuthCallbackCompatActivity extends AppCompatActivity
         if (uri != null) {
             String callbackUri = uri.toString();
             if (callbackUri.startsWith(PocketUtils.getAppId(mConsumerKey))) {
-                onAuthorizationFinished(mRequestToken);
+                onAuthorizationFinished(mConsumerKey, mRequestToken);
             }
         }
     }

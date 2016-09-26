@@ -7,18 +7,15 @@
 
 package com.aokyu.pocket;
 
-import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
+import com.aokyu.pocket.error.PocketException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.aokyu.pocket.error.PocketException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
-public class RequestToken implements Serializable {
-
-    private static final long serialVersionUID = -9155567621462690980L;
+public class RequestToken {
 
     private static final String KEY_CODE = "code";
     private static final String ENCODE = "UTF-8";
@@ -43,11 +40,11 @@ public class RequestToken implements Serializable {
         }
     }
 
-    public String get() {
+    public String getToken() {
         return mToken;
     }
 
-    public String getUrlEncoded() {
+    public String getUrlEncodedToken() {
         String encoded = null;
         try {
             encoded = URLEncoder.encode(mToken, ENCODE);

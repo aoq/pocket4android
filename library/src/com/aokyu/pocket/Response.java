@@ -8,7 +8,7 @@
 package com.aokyu.pocket;
 
 import com.aokyu.pocket.error.PocketException;
-import com.aokyu.pocket.util.JSONUtils;
+import com.aokyu.pocket.util.JsonUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -58,13 +58,20 @@ public class Response {
      */
     private Map<String, Object> mParameters = new HashMap<String, Object>();
 
+    /**
+     * The rate limit per user.
+     */
     private UserLimit mUserLimit;
+
+    /**
+     * The rate limit per application.
+     */
     private ClientLimit mClientLimit;
 
     protected Response(JSONObject jsonObj, Map<String, List<String>> headerFields)
             throws JSONException, PocketException {
         if (jsonObj != null) {
-            String[] keys = JSONUtils.getKeys(jsonObj);
+            String[] keys = JsonUtils.getKeys(jsonObj);
             int size = keys.length;
             for (int i = 0; i < size; i++) {
                 String key = keys[i];
@@ -73,15 +80,14 @@ public class Response {
             }
         }
 
-        mUserLimit = new UserLimit(headerFields);
-        mClientLimit = new ClientLimit(headerFields);
+        initRateLimits(headerFields);
     }
 
     protected Response(JSONObject jsonObj, String rootKey, Map<String, List<String>> headerFields)
             throws JSONException, PocketException {
         JSONObject obj = jsonObj.getJSONObject(rootKey);
         if (obj != null) {
-            String[] keys = JSONUtils.getKeys(obj);
+            String[] keys = JsonUtils.getKeys(obj);
             int size = keys.length;
             for (int i = 0; i < size; i++) {
                 String key = keys[i];
@@ -90,6 +96,10 @@ public class Response {
             }
         }
 
+        initRateLimits(headerFields);
+    }
+
+    private void initRateLimits(Map<String, List<String>> headerFields) throws PocketException {
         mUserLimit = new UserLimit(headerFields);
         mClientLimit = new ClientLimit(headerFields);
     }

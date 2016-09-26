@@ -35,8 +35,6 @@ public class HttpClient {
 
     private static final String DEFAULT_ENCODING = "UTF-8";
 
-    private static final String HEADER_USER_AGENT = "User-Agent";
-
     private Configuration mConfiguration;
 
     private HostnameVerifier mVerifier;
@@ -114,25 +112,14 @@ public class HttpClient {
      */
     public HttpResponse execute(HttpRequest request) throws IOException {
         URL url = request.getUrl();
-        HttpURLConnection connection = null;
-        HttpResponse response = null;
-        connection = prepareConnection(url);
+        HttpURLConnection connection = prepareConnection(url, mConfiguration);
 
         if (connection instanceof HttpsURLConnection) {
-            if (mVerifier != null) {
-                ((HttpsURLConnection)connection).setHostnameVerifier(mVerifier);
-            }
-
-            // Set the secure socket protocol implementation if the HTTPS scheme is used.
-            if (mSslContext != null) {
-                SSLSocketFactory socketFactory = mSslContext.getSocketFactory();
-                ((HttpsURLConnection)connection).setSSLSocketFactory(socketFactory);
-            }
+            onHttpsConnection((HttpsURLConnection) connection);
         }
 
         HttpMethod method = request.getMethod();
         connection.setRequestMethod(method.name());
-
         HttpHeaders headers = request.getHeaders();
         if (headers != null) {
             Set<Entry<String, String>> entries = headers.entrySet();
@@ -157,41 +144,64 @@ public class HttpClient {
             connection.connect();
             onConnected();
 
-            String contentType = headers.get(HttpHeader.CONTENT_TYPE);
-            if (contentType == null || contentType.length() == 0) {
-                throw new IllegalArgumentException("Content type should be specified.");
-            }
+            String contentTypeString = headers.get(HttpHeader.CONTENT_TYPE);
+            ContentTypeHeader contentTypeHeader = new ContentTypeHeader(contentTypeString);
 
             MessageBody body = request.getBody();
-            if (ContentType.JSON.equals(contentType)) {
-                onJson(connection, body);
-            } else if (ContentType.X_WWW_FORM_URLENCODED.equals(contentType)) {
-                onFormUrlEncoded(connection, body);
-            } else if (ContentType.MULTIPART_DATA.equals(contentType)){
-                onMultipartData(connection, body);
-            } else if (ContentType.OCTET_STREAM.equals(contentType)) {
-                onOctetStream(connection, body);
-            } else {
-                onBinaryData(connection, body);
+            String charset = contentTypeHeader.getCharset(DEFAULT_ENCODING);
+            ContentType contentType = contentTypeHeader.toContentType();
+            switch (contentType) {
+                case JSON:
+                    onJson(connection, body, charset);
+                    break;
+                case X_WWW_FORM_URLENCODED:
+                    onFormUrlEncoded(connection, body, charset);
+                    break;
+                case MULTIPART_DATA:
+                    onMultipartData(connection, body);
+                    break;
+                case OCTET_STREAM:
+                    onOctetStream(connection, body);
+                    break;
+                case UNKNOWN:
+                default:
+                    onBinaryData(connection, body);
+                    break;
             }
         }
 
-        response = new HttpResponse(connection);
-        return response;
+        return new HttpResponse(connection);
+    }
+
+    /**
+     * Called when the connection uses HTTPS.
+     *
+     * @param connection The connection.
+     */
+    private void onHttpsConnection(HttpsURLConnection connection) {
+        if (mVerifier != null) {
+            connection.setHostnameVerifier(mVerifier);
+        }
+
+        // Set the secure socket protocol implementation if the HTTPS scheme is used.
+        if (mSslContext != null) {
+            SSLSocketFactory socketFactory = mSslContext.getSocketFactory();
+            connection.setSSLSocketFactory(socketFactory);
+        }
     }
 
     /**
      * Called when the type of the message body for the request is a JSON data.
      * @param connection The connection for the request.
      * @param body The message body to send.
+     * @param charset The charset of the message body.
      * @throws IOException if a network I/O error occurs.
      */
-    private void onJson(HttpURLConnection connection, MessageBody body)
+    private void onJson(HttpURLConnection connection, MessageBody body, String charset)
             throws IOException {
         String messageBody = body.toJson();
-        byte[] bytes = messageBody.getBytes(DEFAULT_ENCODING);
-        OutputStreamWriter writer =
-                new OutputStreamWriter(connection.getOutputStream(), DEFAULT_ENCODING);
+        byte[] bytes = messageBody.getBytes(charset);
+        OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream(), charset);
         writer.write(messageBody);
         writer.flush();
         writer.close();
@@ -203,14 +213,14 @@ public class HttpClient {
      *
      * @param connection The connection for the request.
      * @param body The message body to send.
+     * @param charset The charset of the message body.
      * @throws IOException if a network I/O error occurs.
      */
-    private void onFormUrlEncoded(HttpURLConnection connection, MessageBody body)
+    private void onFormUrlEncoded(HttpURLConnection connection, MessageBody body, String charset)
             throws IOException {
         String messageBody = body.toEncodedParameter();
-        byte[] bytes = messageBody.getBytes(DEFAULT_ENCODING);
-        OutputStreamWriter writer =
-                new OutputStreamWriter(connection.getOutputStream(), DEFAULT_ENCODING);
+        byte[] bytes = messageBody.getBytes(charset);
+        OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream(), charset);
         writer.write(messageBody);
         writer.flush();
         writer.close();
@@ -276,43 +286,44 @@ public class HttpClient {
      * Prepares the connection for the {@link URL} with the {@link Configuration}.
      *
      * @param url The {@link URL} to connect.
+     * @param config The configuration for the connection.
      * @return The {HttpURLConnection}.
      * @throws IOException if an I/O error occurs while opening the connection.
      * @see URL#openConnection()
      * @see Configuration
      */
-    private HttpURLConnection prepareConnection(URL url) throws IOException {
-        HttpURLConnection connection = null;
-        if (mConfiguration == null) {
-            connection = (HttpURLConnection) url.openConnection();
+    private HttpURLConnection prepareConnection(URL url, Configuration config) throws IOException {
+        if (config == null) {
+            // No configuration.
+            return (HttpURLConnection) url.openConnection();
+        }
+
+        HttpURLConnection connection;
+        if (config.hasProxy()) {
+            if (config.hasProxyUser() && config.hasProxyPassword()) {
+                String username = config.getProxyUser();
+                String password = config.getProxyPassword();
+                setProxyAuthenticator(username, password);
+            }
+            Proxy proxy = config.getProxy();
+            connection = (HttpURLConnection) url.openConnection(proxy);
         } else {
+            connection = (HttpURLConnection) url.openConnection();
+        }
 
-            if (mConfiguration.hasProxy()) {
-                if (mConfiguration.hasProxyUser() && mConfiguration.hasProxyPassword()) {
-                    String username = mConfiguration.getProxyUser();
-                    String password = mConfiguration.getProxyPassword();
-                    setProxyAuthenticator(username, password);
-                }
-                Proxy proxy = mConfiguration.getProxy();
-                connection = (HttpURLConnection) url.openConnection(proxy);
-            } else {
-                connection = (HttpURLConnection) url.openConnection();
-            }
+        if (config.hasUserAgent()) {
+            String agent = config.getUserAgent();
+            connection.setRequestProperty(HttpHeader.USER_AGENT, agent);
+        }
 
-            if (mConfiguration.hasUserAgent()) {
-                String agent = mConfiguration.getUserAgent();
-                connection.setRequestProperty(HEADER_USER_AGENT, agent);
-            }
+        if (config.hasConnectTimeout()) {
+            int timeoutMillis = config.getConnectTimeout();
+            connection.setConnectTimeout(timeoutMillis);
+        }
 
-            if (mConfiguration.hasConnectTimeout()) {
-                int timeoutMillis = mConfiguration.getConnectTimeout();
-                connection.setConnectTimeout(timeoutMillis);
-            }
-
-            if (mConfiguration.hasReadTimeout()) {
-                int timeoutMillis = mConfiguration.getReadTimeout();
-                connection.setReadTimeout(timeoutMillis);
-            }
+        if (config.hasReadTimeout()) {
+            int timeoutMillis = config.getReadTimeout();
+            connection.setReadTimeout(timeoutMillis);
         }
         return connection;
     }
@@ -336,7 +347,7 @@ public class HttpClient {
     /**
      * The configuration for a HTTP client.
      *
-     * @see HttpClient#prepareConnection(URL)
+     * @see HttpClient#prepareConnection(URL, Configuration)
      */
     public static class Configuration {
 

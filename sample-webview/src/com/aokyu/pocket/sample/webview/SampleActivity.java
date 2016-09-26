@@ -32,18 +32,15 @@ import com.aokyu.pocket.util.PocketUtils;
 
 import org.json.JSONException;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
@@ -71,25 +68,21 @@ import java.util.List;
 public class SampleActivity extends AppCompatActivity
         implements AuthorizationCallback, AuthListener {
 
+    private static final String CONSUMER_KEY = "YOUR-CONSUMER-KEY";
+
+    private static final String KEY_CHARSET = "charset";
+
+    private static final String ENCODING = "UTF-8";
+
     private Context mContext;
     private FragmentManager mFragmentManager;
-    private SharedPreferences mPreferences;
 
-    private final class PreferenceKey {
-
-        public static final String ACCESS_TOKEN = "access_token";
-        public static final String USERNAME = "username";
-
-        private PreferenceKey() {
-        }
-    }
+    private AppSettings mSettings;
 
     private LinearLayout mButtonLayout;
     private Button mLoginButton;
     private Button mRetrieveButton;
     private RelativeLayout mContainerView;
-
-    private static final String CONSUMER_KEY = "11153-d287068d2f761d0342c329c1";
 
     private PocketClient mClient;
     private ConsumerKey mConsumerKey = new ConsumerKey(CONSUMER_KEY);
@@ -103,7 +96,7 @@ public class SampleActivity extends AppCompatActivity
         setContentView(R.layout.screen_sample);
         mContext = getApplicationContext();
         mFragmentManager = getSupportFragmentManager();
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        mSettings = AppSettings.getInstance(mContext);
         mClient = new PocketClient(mConsumerKey);
         setupViews();
     }
@@ -120,7 +113,7 @@ public class SampleActivity extends AppCompatActivity
                     @Override
                     protected Void doInBackground(Void... params) {
                         try {
-                            mClient.authorize(SampleActivity.this);
+                            mClient.authorize(SampleActivity.this, SampleActivity.this);
                         } catch (IOException e) {
                             Log.d("PocketSample", "Network I/O error : " + e.getMessage());
                         } catch (InvalidRequestException e) {
@@ -192,28 +185,16 @@ public class SampleActivity extends AppCompatActivity
         });
         mContainerView = (RelativeLayout) findViewById(R.id.container_view);
 
-        String token = mPreferences.getString(PreferenceKey.ACCESS_TOKEN, null);
-        String username = mPreferences.getString(PreferenceKey.USERNAME, null);
-        if (!TextUtils.isEmpty(token) || !TextUtils.isEmpty(username)) {
-            mAccessToken = new AccessToken(token, username);
-            mRetrieveButton.setEnabled(true);
-        } else {
-            mRetrieveButton.setEnabled(false);
-        }
+        mAccessToken = mSettings.getAccessToken();
+        mRetrieveButton.setEnabled(mAccessToken != null);
     }
 
     @Override
-    public void onRequested(ConsumerKey consumerKey, RequestToken requestToken) {
+    public boolean onRequestTokenRetrieved(Context context, ConsumerKey consumerKey,
+            RequestToken requestToken) {
         mRequestToken = requestToken;
-    }
 
-    @Override
-    public Activity onRequestContinued() {
-        if (mRequestToken == null) {
-            return null;
-        }
-
-        final String url = PocketServer.getRedirectUrl(mConsumerKey, mRequestToken);
+        final String url = PocketServer.getRedirectUrl(consumerKey, requestToken);
         CookieSyncManager cookieSyncManager = CookieSyncManager.createInstance(mContext);
         CookieManager cookieManager = CookieManager.getInstance();
         cookieManager.setAcceptCookie(true);
@@ -223,8 +204,10 @@ public class SampleActivity extends AppCompatActivity
             URL requestUrl = new URL(url);
             HttpHeaders headers = new HttpHeaders();
             headers.put(HttpHeader.HOST, requestUrl.getHost());
-            headers.put(HttpHeader.CONTENT_TYPE, ContentType.X_WWW_FORM_URLENCODED_UTF8.get());
-            headers.put(HttpHeader.X_ACCEPT, ContentType.X_WWW_FORM_URLENCODED.get());
+            Pair<String, String> charsetParam = new Pair<>(KEY_CHARSET, ENCODING);
+            headers.put(HttpHeader.CONTENT_TYPE,
+                    ContentType.X_WWW_FORM_URLENCODED.toHeader(charsetParam));
+            headers.put(HttpHeader.X_ACCEPT, ContentType.X_WWW_FORM_URLENCODED.toHeader());
             headers.put(HttpHeader.COOKIE, cookies);
             ParametersBody body = new ParametersBody();
             HttpRequest request = new HttpRequest(HttpMethod.POST, requestUrl, headers, body);
@@ -234,8 +217,8 @@ public class SampleActivity extends AppCompatActivity
             if (statusCode == HttpURLConnection.HTTP_MOVED_TEMP) {
                 String location = response.getHeaderField(HttpHeader.LOCATION);
                 if (location != null && location.startsWith(PocketUtils.getAppId(mConsumerKey))) {
-                    onAuthorizationFinished(null);
-                    return null;
+                    onAuthorizationFinished(mRequestToken);
+                    return true;
                 }
             }
         } catch (MalformedURLException e) {
@@ -250,8 +233,7 @@ public class SampleActivity extends AppCompatActivity
                 showAuthFragment(url);
             }
         });
-
-        return null;
+        return true;
     }
 
     private void showAuthFragment(String url) {
@@ -302,8 +284,7 @@ public class SampleActivity extends AppCompatActivity
         transaction.commit();
     }
 
-    @Override
-    public void onAuthorizationFinished(RequestToken requestToken) {
+    public void onAuthorizationFinished(final RequestToken requestToken) {
         mButtonLayout.setVisibility(View.VISIBLE);
         mContainerView.setVisibility(View.GONE);
         showProgressDialog();
@@ -313,7 +294,7 @@ public class SampleActivity extends AppCompatActivity
             protected AccessToken doInBackground(Void... params) {
                 AccessToken token = null;
                 try {
-                    token = mClient.authenticate(mRequestToken);
+                    token = mClient.authenticate(requestToken);
                 } catch (IOException e) {
                     Log.d("PocketSample", "Network I/O error : " + e.getMessage());
                 } catch (InvalidRequestException e) {
@@ -327,16 +308,9 @@ public class SampleActivity extends AppCompatActivity
             @Override
             protected void onPostExecute(AccessToken result) {
                 if (result != null) {
-                    String token = result.get();
-                    String username = result.getUsername();
-                    mPreferences.edit()
-                            .putString(PreferenceKey.ACCESS_TOKEN, token)
-                            .putString(PreferenceKey.USERNAME, username)
-                            .apply();
-                    if (!TextUtils.isEmpty(token)) {
-                        mAccessToken = result;
-                        mRetrieveButton.setEnabled(true);
-                    }
+                    mSettings.setAccessToken(result);
+                    mAccessToken = result;
+                    mRetrieveButton.setEnabled(true);
                 }
                 hideProgressDialog();
             }

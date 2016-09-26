@@ -12,7 +12,7 @@ package com.aokyu.pocket;
  */
 public class AddRequest extends Request {
 
-    public final class Parameter {
+    /* package */ final class Parameter {
 
         public static final String ACCESS_TOKEN = "access_token";
         public static final String CONSUMER_KEY = "consumer_key";

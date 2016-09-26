@@ -23,8 +23,6 @@ import java.util.Map;
  */
 public class HttpResponse {
 
-    private static final String DEFAULT_ENCODING = "UTF-8";
-
     private HttpURLConnection mConnection;
 
     public HttpResponse(HttpURLConnection connection) throws IOException {
@@ -54,16 +52,16 @@ public class HttpResponse {
         return mConnection.getErrorStream();
     }
 
-    public String getErrorAsString() throws IOException {
+    public String getErrorAsString(String charset) throws IOException {
         InputStream error = mConnection.getErrorStream();
         InputStreamReader reader = null;
         BufferedReader buffer = null;
         String response = null;
         try {
-            reader = new InputStreamReader(error, DEFAULT_ENCODING);
+            reader = new InputStreamReader(error, charset);
             buffer = new BufferedReader(reader);
 
-            String line = null;
+            String line;
             StringBuilder builder = new StringBuilder();
             while ((line = buffer.readLine()) != null) {
                 builder.append(line);
@@ -85,13 +83,13 @@ public class HttpResponse {
         return mConnection.getInputStream();
     }
 
-    public String getResponseAsString() throws IOException {
+    public String getResponseAsString(String charset) throws IOException {
         InputStream input = mConnection.getInputStream();
         InputStreamReader reader = null;
         BufferedReader buffer = null;
         String response = null;
         try {
-            reader = new InputStreamReader(input, DEFAULT_ENCODING);
+            reader = new InputStreamReader(input, charset);
             buffer = new BufferedReader(reader);
 
             String line = null;
@@ -112,8 +110,8 @@ public class HttpResponse {
         return response;
     }
 
-    public JSONObject getResponseAsJSONObject() throws JSONException, IOException {
-        String responseString = getResponseAsString();
+    public JSONObject getResponseAsJSONObject(String charset) throws JSONException, IOException {
+        String responseString = getResponseAsString(charset);
         return new JSONObject(responseString);
     }
 

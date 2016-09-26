@@ -12,10 +12,26 @@ import com.aokyu.pocket.error.PocketException;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class holds the rate limit for an application.
+ * Each application is limited to 10,000 calls per hour.
+ * @see <a href="https://getpocket.com/developer/docs/rate-limits">Developer API - Rate Limits</a>
+ */
 public class ClientLimit {
 
+    /**
+     * The header key for the current rate limit enforced per consumer key.
+     */
     private static final String CLIENT_LIMIT = "X-Limit-Key-Limit";
+
+    /**
+     * The header key for the number of calls remaining before hitting consumer key's rate limit.
+     */
     private static final String CLIENT_REMAINING = "X-Limit-Key-Remaining";
+
+    /**
+     * The header key for seconds until consumer key's rate limit resets.
+     */
     private static final String CLIENT_RESET = "X-Limit-Key-Reset";
 
     private RateLimit mLimit;
@@ -44,15 +60,35 @@ public class ClientLimit {
         }
     }
 
+    /**
+     * Returns the current rate limit enforced per consumer key.
+     *
+     * @return The current rate limit.
+     */
     public int getLimit() {
         return mLimit.getLimit();
     }
 
+    /**
+     * Returns the number of calls remaining before hitting consumer key's rate limit.
+     *
+     * @return The number of calls remaining.
+     */
     public int getRemainingCalls() {
         return mLimit.getRemainingCalls();
     }
 
+    /**
+     * Returns the time until consumer key's rate limit resets, in seconds.
+     *
+     * @return The time until consumer key's rate limit resets.
+     */
     public long getResetTime() {
         return mLimit.getResetTime();
+    }
+
+    @Override
+    public String toString() {
+        return "[Client] " + mLimit.toString();
     }
 }

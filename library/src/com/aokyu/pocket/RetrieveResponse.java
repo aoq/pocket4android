@@ -13,7 +13,7 @@ import com.aokyu.pocket.content.Page.ImageState;
 import com.aokyu.pocket.content.Page.VideoState;
 import com.aokyu.pocket.content.Video;
 import com.aokyu.pocket.error.PocketException;
-import com.aokyu.pocket.util.JSONUtils;
+import com.aokyu.pocket.util.JsonUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -166,20 +166,20 @@ public class RetrieveResponse extends Response {
     public String[] getTags(String uid) throws JSONException {
         JSONObject obj = (JSONObject) get(uid);
         JSONObject tags = obj.getJSONObject(Parameter.TAGS);
-        return JSONUtils.getKeys(tags);
+        return JsonUtils.getKeys(tags);
     }
 
     public String[] getAuthors(String uid) throws JSONException {
         JSONObject obj = (JSONObject) get(uid);
         JSONObject tags = obj.getJSONObject(Parameter.AUTHORS);
-        return JSONUtils.getKeys(tags);
+        return JsonUtils.getKeys(tags);
     }
 
     public Image[] getImages(String uid) throws JSONException {
         JSONObject obj = (JSONObject) get(uid);
         Image[] images = null;
         JSONObject jsonImages = obj.getJSONObject(Parameter.IMAGES);
-        String[] keys = JSONUtils.getKeys(jsonImages);
+        String[] keys = JsonUtils.getKeys(jsonImages);
         int size = keys.length;
         if (size > 0) {
             images = new Image[size];
@@ -199,7 +199,7 @@ public class RetrieveResponse extends Response {
         JSONObject obj = (JSONObject) get(uid);
         Video[] videos = null;
         JSONObject jsonVideo = obj.getJSONObject(Parameter.VIDEOS);
-        String[] keys = JSONUtils.getKeys(jsonVideo);
+        String[] keys = JsonUtils.getKeys(jsonVideo);
         int size = keys.length;
         if (size > 0) {
             videos = new Video[size];

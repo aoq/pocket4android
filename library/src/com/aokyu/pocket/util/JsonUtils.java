@@ -13,9 +13,9 @@ import java.util.Iterator;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public final class JSONUtils {
+public final class JsonUtils {
 
-    private JSONUtils() {}
+    private JsonUtils() {}
 
     @SuppressWarnings("unchecked")
     public static String[] getKeys(JSONObject obj) {

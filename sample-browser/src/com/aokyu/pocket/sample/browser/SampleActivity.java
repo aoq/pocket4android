@@ -8,7 +8,6 @@
 package com.aokyu.pocket.sample.browser;
 
 import com.aokyu.pocket.AccessToken;
-import com.aokyu.pocket.AuthCallbackCompatActivity;
 import com.aokyu.pocket.ConsumerKey;
 import com.aokyu.pocket.PocketClient;
 import com.aokyu.pocket.RequestToken;
@@ -18,16 +17,14 @@ import com.aokyu.pocket.RetrieveResponse;
 import com.aokyu.pocket.content.Page;
 import com.aokyu.pocket.error.InvalidRequestException;
 import com.aokyu.pocket.error.PocketException;
+import com.aokyu.pocket.util.AuthCallbackCompatActivity;
 
 import org.json.JSONException;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -49,7 +46,7 @@ import java.util.List;
 public class SampleActivity extends AuthCallbackCompatActivity {
 
     private Context mContext;
-    private SharedPreferences mPreferences;
+    private AppSettings mSettings;
 
     private final class PreferenceKey {
 
@@ -63,7 +60,7 @@ public class SampleActivity extends AuthCallbackCompatActivity {
     private Button mLoginButton;
     private Button mRetrieveButton;
 
-    private static final String CONSUMER_KEY = "11153-d287068d2f761d0342c329c1";
+    private static final String CONSUMER_KEY = "YOUR-CONSUMER-KEY";
 
     private PocketClient mClient;
     private ConsumerKey mConsumerKey = new ConsumerKey(CONSUMER_KEY);
@@ -75,7 +72,7 @@ public class SampleActivity extends AuthCallbackCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.screen_sample);
         mContext = getApplicationContext();
-        mPreferences = PreferenceManager.getDefaultSharedPreferences(mContext);
+        mSettings = AppSettings.getInstance(mContext);
         mClient = new PocketClient(mConsumerKey);
         setupViews();
     }
@@ -95,7 +92,7 @@ public class SampleActivity extends AuthCallbackCompatActivity {
                     @Override
                     protected Void doInBackground(Void... params) {
                         try {
-                            mClient.authorize(SampleActivity.this);
+                            mClient.authorize(SampleActivity.this, SampleActivity.this);
                         } catch (IOException e) {
                         } catch (InvalidRequestException e) {
                         } catch (PocketException e) {
@@ -168,18 +165,12 @@ public class SampleActivity extends AuthCallbackCompatActivity {
             }
         });
 
-        String token = mPreferences.getString(PreferenceKey.ACCESS_TOKEN, null);
-        String username = mPreferences.getString(PreferenceKey.USERNAME, null);
-        if (!TextUtils.isEmpty(token) || !TextUtils.isEmpty(username)) {
-            mAccessToken = new AccessToken(token, username);
-            mRetrieveButton.setEnabled(true);
-        } else {
-            mRetrieveButton.setEnabled(false);
-        }
+
+        mAccessToken = mSettings.getAccessToken();
+        mRetrieveButton.setEnabled(mAccessToken != null);
     }
 
-    @Override
-    public void onAuthorizationFinished(final RequestToken requestToken) {
+    public void onAuthorizationFinished(ConsumerKey consumerKey, final RequestToken requestToken) {
         new AsyncTask<Void, Void, AccessToken>() {
 
             @Override
@@ -197,16 +188,9 @@ public class SampleActivity extends AuthCallbackCompatActivity {
             @Override
             protected void onPostExecute(AccessToken result) {
                 if (result != null) {
-                    String token = result.get();
-                    String username = result.getUsername();
-                    mPreferences.edit()
-                            .putString(PreferenceKey.ACCESS_TOKEN, token)
-                            .putString(PreferenceKey.USERNAME, username)
-                            .apply();
-                    if (!TextUtils.isEmpty(token)) {
-                        mAccessToken = result;
-                        mRetrieveButton.setEnabled(true);
-                    }
+                    mSettings.setAccessToken(result);
+                    mAccessToken = result;
+                    mRetrieveButton.setEnabled(true);
                 }
                 hideProgressDialog();
             }

@@ -36,8 +36,8 @@ public final class HttpUtils {
         } else {
             int port = getDefaultPort();
             if (port != -1) {
-                SocketAddress addr = new InetSocketAddress(host, port);
-                return new Proxy(Proxy.Type.HTTP, addr);
+                SocketAddress address = new InetSocketAddress(host, port);
+                return new Proxy(Proxy.Type.HTTP, address);
             } else {
                 return null;
             }

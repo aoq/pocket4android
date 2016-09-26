@@ -12,11 +12,15 @@ package com.aokyu.pocket.http;
  */
 public final class HttpHeader {
 
+    public static final String USER_AGENT = "User-Agent";
     public static final String HOST = "Host";
     public static final String CONTENT_TYPE = "Content-Type";
     public static final String COOKIE = "Cookie";
     public static final String LOCATION = "Location";
 
+    /**
+     * The header indicating the format you would like to receive the response,
+     */
     public static final String X_ACCEPT = "X-Accept";
     public static final String X_ERROR_CODE = "X-Error-Code";
     public static final String X_ERROR = "X-Error";

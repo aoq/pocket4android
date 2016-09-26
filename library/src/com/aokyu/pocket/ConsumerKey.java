@@ -10,27 +10,29 @@ package com.aokyu.pocket;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+/**
+ * This class holds the consumer key.
+ */
 public final class ConsumerKey {
 
-    public static final String KEY = "consumer_key";
     private static final String ENCODE = "UTF-8";
 
-    private String mConsumerKey;
+    private final String mKey;
 
-    public ConsumerKey(String consumerKey) {
-        mConsumerKey = consumerKey;
+    public ConsumerKey(String key) {
+        mKey = key;
     }
 
-    public String get() {
-        return mConsumerKey;
+    public String getKey() {
+        return mKey;
     }
 
-    public String getUrlEncoded() {
+    public String getUrlEncodedKey() {
         String encoded = null;
         try {
-            encoded = URLEncoder.encode(mConsumerKey, ENCODE);
+            encoded = URLEncoder.encode(mKey, ENCODE);
         } catch (UnsupportedEncodingException e) {
-            encoded = mConsumerKey;
+            encoded = mKey;
         }
         return encoded;
     }
